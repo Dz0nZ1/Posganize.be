@@ -23,14 +23,14 @@ public class Payments {
 
     @OneToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private Users users;
+    private Users user;
 
     @ManyToMany
     @JoinTable(
             name = "payments_training",
             joinColumns = @JoinColumn(name = "payment_id"),
             inverseJoinColumns = @JoinColumn(name = "training_id"))
-    List<Training> likedCourses;
+    private List<Training> trainings;
 
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
