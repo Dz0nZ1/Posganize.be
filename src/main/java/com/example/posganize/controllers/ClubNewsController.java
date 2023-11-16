@@ -1,10 +1,9 @@
 package com.example.posganize.controllers;
 
 import com.example.posganize.models.ClubNewsModel;
-import com.example.posganize.services.ClubNews.ClubNewsService;
+import com.example.posganize.services.clubNews.ClubNewsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

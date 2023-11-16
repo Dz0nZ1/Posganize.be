@@ -1,4 +1,4 @@
-package com.example.posganize.services.ClubNews;
+package com.example.posganize.services.clubNews;
 import com.example.posganize.mappers.ClubNewsMapper;
 import com.example.posganize.models.ClubNewsModel;
 import com.example.posganize.repository.ClubNewsRepository;
