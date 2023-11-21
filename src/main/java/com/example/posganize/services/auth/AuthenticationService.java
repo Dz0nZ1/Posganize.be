@@ -8,7 +8,7 @@ import com.example.posganize.models.AuthenticationRequest;
 import com.example.posganize.models.AuthenticationResponse;
 import com.example.posganize.models.RegisterRequest;
 import com.example.posganize.repository.TokenRepository;
-import com.example.posganize.repository.UserRepository;
+import com.example.posganize.repository.UsersRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,12 +20,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UserRepository userRepository;
+    private final UsersRepository usersRepository;
 
     private final TokenRepository tokenRepository;
 
@@ -41,10 +42,13 @@ public class AuthenticationService {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
+                .phoneNumber(request.getPhoneNumber())
+                .trailTraining(true)
+                .registrationDate(LocalDateTime.now())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(RoleEnum.USER)
                 .build();
-        var savedUser = userRepository.save(user);
+        var savedUser = usersRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);
@@ -60,7 +64,7 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        var user = usersRepository.findByEmail(request.getEmail()).orElseThrow();
         revokeAllUserTokens(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
@@ -108,7 +112,7 @@ public class AuthenticationService {
         refreshToken = authHeader.substring(7);
         email = jwtService.extractUsername(refreshToken);
         if(email != null) {
-            var user = this.userRepository.findByEmail(email).orElseThrow();
+            var user = this.usersRepository.findByEmail(email).orElseThrow();
 //            boolean isTokenValid = tokenRepository.findByToken(refreshToken).map(t -> !t.isExpired() && !t.isRevoked()).orElse(false);
             if(jwtService.isTokenValid(refreshToken, user)){
                var accessToken = jwtService.generateToken(user);
@@ -120,7 +124,7 @@ public class AuthenticationService {
                        .refreshToken(refreshToken)
                        .build();
                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
-            };
+            }
         }
     }
 }

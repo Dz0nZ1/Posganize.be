@@ -1,6 +1,6 @@
 package com.example.posganize.config;
 
-import com.example.posganize.repository.UserRepository;
+import com.example.posganize.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UserRepository userRepository;
+    private final UsersRepository usersRepository;
 
 
     @Bean
     public UserDetailsService userDetailsService() {
-       return username -> userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Users not found"));
+       return username -> usersRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Users not found"));
     }
 
     @Bean
