@@ -36,11 +36,6 @@ public class ClubNewsServiceImpl implements ClubNewsService {
     public ClubNewsModel updateClubNews(ClubNewsModel clubNews, Long newsId) {
         var entity = ClubNewsMapper.mapClubNewsModelToClubNews(clubNews);
         var newClubNews = clubNewsRepository.findById(newsId).orElseThrow(() -> new NullPointerException("News not found"));
-        if (entity.getName()!=null)
-            newClubNews.setName(entity.getName());
-        if (entity.getDescription()!=null)
-            newClubNews.setDescription(entity.getDescription());
-
         clubNewsRepository.save(newClubNews);
         return ClubNewsMapper.mapClubNewsToClubNewsModel(newClubNews);
     }
