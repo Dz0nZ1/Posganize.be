@@ -14,5 +14,4 @@ public class ScheduleModel {
     private String name;
     private String day;
     private String time;
-
 }
