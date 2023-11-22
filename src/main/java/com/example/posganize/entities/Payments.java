@@ -1,5 +1,6 @@
 package com.example.posganize.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,16 +21,15 @@ public class Payments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long payment_id;
 
-    @OneToOne()
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private Users user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "payments_training",
-            joinColumns = @JoinColumn(name = "payment_id"),
-            inverseJoinColumns = @JoinColumn(name = "training_id"))
-    private List<Training> trainings;
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "membership_id", referencedColumnName = "membership_id")
+    private Membership membership;
 
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
