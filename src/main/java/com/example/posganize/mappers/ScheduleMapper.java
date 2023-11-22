@@ -30,4 +30,13 @@ public class ScheduleMapper {
         return modelList;
     }
 
+
+    public static List<Schedule> mapScheduleListModelToScheduleList(List<ScheduleModel> schedules){
+        List<Schedule> modelList = new ArrayList<>();
+        for(ScheduleModel model : schedules){
+            modelList.add(mapScheduleModelToSchedule(model));
+        }
+        return modelList;
+    }
+
 }
