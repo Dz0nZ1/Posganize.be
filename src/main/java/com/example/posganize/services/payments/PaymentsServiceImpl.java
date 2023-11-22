@@ -39,8 +39,8 @@ public class PaymentsServiceImpl implements PaymentsService {
         if(entity.getUser() != null) {
             newPayments.setUser(entity.getUser());
         }
-        if(entity.getTrainings() != null) {
-            newPayments.setTrainings(entity.getTrainings());
+        if(entity.getMembership() != null) {
+            newPayments.setMembership(entity.getMembership());
         }
         if(entity.getFromDate() != null) {
             newPayments.setFromDate(entity.getFromDate());

@@ -10,7 +10,7 @@ public class TrainingMapper {
 
     public static TrainingModel mapTrainingToTrainingModel(Training training) {
         return TrainingModel.builder()
-                .schedule(training.getSchedule())
+                .schedule(ScheduleMapper.mapScheduleListToScheduleModelList(training.getSchedule()))
                 .name(training.getName())
                 .price(training.getPrice())
                 .build();
@@ -19,7 +19,7 @@ public class TrainingMapper {
 
     public static Training mapTrainingModelToTraining(TrainingModel training) {
         return Training.builder()
-                .schedule(training.getSchedule())
+                .schedule(ScheduleMapper.mapScheduleListModelToScheduleList(training.getSchedule()))
                 .name(training.getName())
                 .price(training.getPrice())
                 .build();
@@ -34,4 +34,14 @@ public class TrainingMapper {
         return modelList;
 
     }
+
+    public static List<Training> mapTrainingModelListToTrainingList(List<TrainingModel> training) {
+        List<Training> modelList = new ArrayList<>();
+        for (TrainingModel model : training) {
+            modelList.add(mapTrainingModelToTraining(model));
+        }
+        return modelList;
+
+    }
+
 }

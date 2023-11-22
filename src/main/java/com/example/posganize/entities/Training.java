@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,12 +21,15 @@ public class Training {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long training_id;
 
-    @OneToOne()
-    @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id")
-    private Schedule schedule;
-
     private String name;
     private Double price;
+
+    @ManyToMany
+    @JoinTable(
+            name = "training_schedule",
+            joinColumns = @JoinColumn(name = "training_id"),
+            inverseJoinColumns = @JoinColumn(name = "schedule_id"))
+    private List<Schedule> schedule;
 
 
 }

@@ -5,15 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TrainingModel {
-
-    private String name;
-    private Double price;
-    private List<ScheduleModel> schedule;
+public class UserMembershipModel {
+    private Long userId;
+    private String firstName;
+    private String lastName;
 }

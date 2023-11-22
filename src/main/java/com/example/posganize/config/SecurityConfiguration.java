@@ -36,7 +36,11 @@ public class SecurityConfiguration {
                .csrf(AbstractHttpConfigurer::disable)
                .authorizeHttpRequests(
                        req ->
-                               req.requestMatchers("/api/v1/auth/register", "/api/v1/auth/login","/generate-qr-code", "/api/v1/users/all", "/api/v1/users/get/**", "/api/v1/users/update/**", "/api/v1/users/delete/**")
+                               req.requestMatchers("/api/v1/auth/register", "/api/v1/auth/login",
+                                               "/generate-qr-code", "/api/v1/users/all", "/api/v1/users/get/**",
+                                               "/api/v1/users/update/**", "/api/v1/users/delete/**", "/api/v1/membership/all",
+                                               "/api/v1/membership/create", "/api/v1/membership/get/**", "/api/v1/membership/active/**", "/api/v1/schedule/all",
+                                       "/api/v1/training/all", "/api/v1/training/get/**")
                                        .permitAll()
 
                                        //Roles
