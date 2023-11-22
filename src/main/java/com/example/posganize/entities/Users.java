@@ -2,11 +2,9 @@ package com.example.posganize.entities;
 
 
 import com.example.posganize.enums.RoleEnum;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -36,6 +34,14 @@ public class Users implements UserDetails {
     private RoleEnum role;
     @OneToMany(mappedBy = "users")
     private List<Token> tokens;
+    @JsonManagedReference
+    @ToString.Exclude
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Membership membership;
+    @JsonManagedReference
+    @ToString.Exclude
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Payments payments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
