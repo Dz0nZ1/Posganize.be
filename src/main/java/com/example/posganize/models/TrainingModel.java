@@ -1,10 +1,11 @@
 package com.example.posganize.models;
 
-import com.example.posganize.entities.Schedule;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -12,8 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TrainingModel {
 
-    private Schedule schedule;
-
     private String name;
     private Double price;
+    private List<ScheduleModel> schedule;
 }
