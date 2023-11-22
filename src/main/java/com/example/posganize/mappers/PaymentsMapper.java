@@ -11,7 +11,7 @@ public class PaymentsMapper {
     public static PaymentsModel mapPaymentsToPaymentsModel(Payments payments) {
         return PaymentsModel.builder()
                 .user(payments.getUser())
-                .trainings(payments.getTrainings())
+                .membership(payments.getMembership())
                 .fromDate(payments.getFromDate())
                 .toDate(payments.getToDate())
                 .totalPrice(payments.getTotalPrice())
@@ -22,7 +22,7 @@ public class PaymentsMapper {
     public static Payments mapPaymentsModelToPayments(PaymentsModel payments) {
         return Payments.builder()
                 .user(payments.getUser())
-                .trainings(payments.getTrainings())
+                .membership(payments.getMembership())
                 .fromDate(payments.getFromDate())
                 .toDate(payments.getToDate())
                 .totalPrice(payments.getTotalPrice())
