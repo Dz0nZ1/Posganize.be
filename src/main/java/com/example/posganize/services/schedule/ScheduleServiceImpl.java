@@ -1,4 +1,4 @@
-package com.example.posganize.services.Schedule;
+package com.example.posganize.services.schedule;
 
 import com.example.posganize.mappers.ScheduleMapper;
 

@@ -1,7 +1,7 @@
 package com.example.posganize.controllers;
 
 import com.example.posganize.models.TrainingModel;
-import com.example.posganize.services.Training.TrainingService;
+import com.example.posganize.services.training.TrainingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.example.posganize.services.Training;
+package com.example.posganize.services.training;
 
 import com.example.posganize.models.TrainingModel;
 

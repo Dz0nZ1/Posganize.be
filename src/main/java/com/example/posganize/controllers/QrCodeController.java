@@ -1,6 +1,6 @@
 package com.example.posganize.controllers;
 
-import com.example.posganize.services.QrCode.QrCodeService;
+import com.example.posganize.services.qrCode.QrCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
