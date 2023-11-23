@@ -14,6 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+
+import java.util.Collections;
+
 import static com.example.posganize.enums.RoleEnum.ADMIN;
 import static com.example.posganize.enums.RoleEnum.MANAGER;
 import static com.example.posganize.enums.PermissionEnum.*;
@@ -71,8 +76,21 @@ public class SecurityConfiguration {
                        .addLogoutHandler(logoutHandler)
                        .logoutUrl("/api/v1/auth/logout")
                        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()))
+               .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfiguration()))
                .build();
     }
 
 
+    @Bean
+    public CorsConfigurationSource corsConfiguration() {
+        return request -> {
+            org.springframework.web.cors.CorsConfiguration config =
+                    new org.springframework.web.cors.CorsConfiguration();
+            config.setAllowedHeaders(Collections.singletonList("*"));
+            config.setAllowedMethods(Collections.singletonList("*"));
+            config.setAllowedOriginPatterns(Collections.singletonList("*"));
+            config.setAllowCredentials(true);
+            return config;
+        };
+    }
 }
