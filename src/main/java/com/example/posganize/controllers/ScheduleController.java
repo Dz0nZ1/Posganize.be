@@ -2,7 +2,7 @@ package com.example.posganize.controllers;
 
 
 import com.example.posganize.models.ScheduleModel;
-import com.example.posganize.services.Schedule.ScheduleService;
+import com.example.posganize.services.schedule.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

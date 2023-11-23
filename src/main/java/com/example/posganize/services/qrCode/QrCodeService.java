@@ -1,4 +1,4 @@
-package com.example.posganize.services.QrCode;
+package com.example.posganize.services.qrCode;
 
 public interface QrCodeService
 {

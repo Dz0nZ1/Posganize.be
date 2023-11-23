@@ -1,4 +1,4 @@
-package com.example.posganize.services.QrCode;
+package com.example.posganize.services.qrCode;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 @Service
 public class QrCodeServiceImpl implements QrCodeService {
-    private Logger logger = LoggerFactory.getLogger(QrCodeServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(QrCodeServiceImpl.class);
     @Override
     public byte[] generateQrCode(String qrCodeContent, int width, int height) {
 
