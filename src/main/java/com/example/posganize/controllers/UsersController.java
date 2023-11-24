@@ -1,6 +1,7 @@
 package com.example.posganize.controllers;
 
 import com.example.posganize.models.UpdateUsersModel;
+import com.example.posganize.models.UserPageableModel;
 import com.example.posganize.models.UsersModel;
 import com.example.posganize.services.users.UsersService;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,11 +23,19 @@ public class UsersController {
 
     @GetMapping("/all")
 //    @PreAuthorize("hasAuthority('admin:read')")
-    public ResponseEntity<List<UsersModel>> getAllUsers(){
-        return new ResponseEntity<>(usersService.getAllUsers(), HttpStatus.OK);
+    public ResponseEntity<UserPageableModel> getAllUsers(
+            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false ) int pageSize
+    ){
+        return new ResponseEntity<>(usersService.getAllUsers(pageNumber, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping("/get/{email}")
+    @GetMapping("/get/{id}")
+    public ResponseEntity<UsersModel>getUserWithMembershipById(@PathVariable("id") Long userId){
+        return new ResponseEntity<>(usersService.getUserWithMembershipById(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/email/{email}")
 //    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<UsersModel> getUserByEmail(@PathVariable("email") String Email){
         return new ResponseEntity<>(usersService.getUserByEmail(Email), HttpStatus.OK);
