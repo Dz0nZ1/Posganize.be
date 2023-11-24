@@ -15,4 +15,5 @@ public class UserPageableModel {
     private List<UsersModel> users;
     private int pageNumber;
     private int pageSize;
+    private Long numberOfUsers;
 }

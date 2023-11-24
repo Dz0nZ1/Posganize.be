@@ -30,6 +30,7 @@ public class UsersServiceImpl implements UsersService {
                 .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
+                .numberOfUsers(pagedUsers.getTotalElements())
                 .build();
     }
 
