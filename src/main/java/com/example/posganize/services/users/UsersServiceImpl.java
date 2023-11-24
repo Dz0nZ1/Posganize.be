@@ -31,6 +31,8 @@ public class UsersServiceImpl implements UsersService {
                 .pageNumber(pageNumber)
                 .pageSize(pageSize)
                 .numberOfUsers(pagedUsers.getTotalElements())
+                .totalPages(pagedUsers.getTotalPages())
+                .isLast(pagedUsers.isLast())
                 .build();
     }
 

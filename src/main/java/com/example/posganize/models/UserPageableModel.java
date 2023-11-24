@@ -16,4 +16,6 @@ public class UserPageableModel {
     private int pageNumber;
     private int pageSize;
     private Long numberOfUsers;
+    private int totalPages;
+    private boolean isLast;
 }
