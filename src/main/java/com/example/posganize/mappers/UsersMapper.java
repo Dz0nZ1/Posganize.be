@@ -2,6 +2,7 @@ package com.example.posganize.mappers;
 import com.example.posganize.entities.Users;
 import com.example.posganize.models.UpdateUsersModel;
 import com.example.posganize.models.UsersModel;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class UsersMapper {
                 .phoneNumber(users.getPhoneNumber())
                 .registrationDate(users.getRegistrationDate())
                 .email(users.getEmail())
+                .active(users.getMembership().getActive())
                 .build();
     }
 
@@ -60,6 +62,14 @@ public class UsersMapper {
         }
         return modelList;
 
+    }
+
+    public static List<UsersModel> mapUsersPageableToUsersModel (Page<Users> users) {
+        List<UsersModel> modelList = new ArrayList<>();
+        for (Users entity : users) {
+            modelList.add(mapUsersToUsersModel(entity));
+        }
+        return modelList;
     }
 
 
