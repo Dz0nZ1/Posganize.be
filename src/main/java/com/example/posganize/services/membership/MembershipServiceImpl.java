@@ -85,7 +85,11 @@ public class MembershipServiceImpl implements MembershipService {
         var user = usersRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found"));
         var membership = membershipRepository.findByUser(user);
         var map = new HashMap<String, Boolean>();
-        map.put("active", membership.getActive());
+        if(membership != null) {
+            map.put("active", membership.getActive());
+            return map;
+        }
+        map.put("active", false);
         return map;
     }
 }
