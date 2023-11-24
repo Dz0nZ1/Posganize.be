@@ -1,13 +1,15 @@
 package com.example.posganize.services.users;
 
 import com.example.posganize.models.UpdateUsersModel;
+import com.example.posganize.models.UserPageableModel;
 import com.example.posganize.models.UsersModel;
 
-import java.util.List;
 
 public interface UsersService {
 
-    List<UsersModel> getAllUsers();
+    UserPageableModel getAllUsers(int pageNumber, int pageSize);
+
+    UsersModel getUserWithMembershipById(Long userId);
 
     UsersModel getUserByEmail(String Email);
 

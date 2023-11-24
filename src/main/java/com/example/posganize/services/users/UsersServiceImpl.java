@@ -1,26 +1,43 @@
 package com.example.posganize.services.users;
 
 
+import com.example.posganize.entities.Users;
 import com.example.posganize.mappers.UsersMapper;
 import com.example.posganize.models.UpdateUsersModel;
+import com.example.posganize.models.UserPageableModel;
 import com.example.posganize.models.UsersModel;
 import com.example.posganize.repository.UsersRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UsersServiceImpl implements UsersService {
 
     private final UsersRepository usersRepository;
 
+
     public UsersServiceImpl(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
     @Override
-    public List<UsersModel> getAllUsers() {
-        return UsersMapper.mapUsersListToUsersModelList(usersRepository.findAll());
+    public UserPageableModel getAllUsers(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Users> pagedUsers = usersRepository.findAllUsersWithMembership(pageable);
+        return UserPageableModel.builder()
+                .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .build();
+    }
+
+    @Override
+    public UsersModel getUserWithMembershipById(Long userId) {
+        var user = usersRepository.findUserWithMembership(userId);
+        if(user != null) return  UsersMapper.mapUsersToUsersModel(user);
+        else return null;
     }
 
     @Override
@@ -28,6 +45,9 @@ public class UsersServiceImpl implements UsersService {
         return UsersMapper.mapUsersToUsersModel(usersRepository.findByEmail(Email).orElseThrow(() -> new NullPointerException("User not found")));
 
     }
+
+
+
 
 
 
