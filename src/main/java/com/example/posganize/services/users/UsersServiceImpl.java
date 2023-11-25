@@ -2,6 +2,7 @@ package com.example.posganize.services.users;
 
 
 import com.example.posganize.entities.Users;
+import com.example.posganize.exceptions.UserNotFoundException;
 import com.example.posganize.mappers.UsersMapper;
 import com.example.posganize.models.UpdateUsersModel;
 import com.example.posganize.models.UserPageableModel;
@@ -23,29 +24,69 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserPageableModel getAllUsers(int pageNumber, int pageSize) {
+    public UserPageableModel getAllUsers(int pageNumber, int pageSize, String status) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        Page<Users> pagedUsers = usersRepository.findAllUsersWithMembership(pageable);
-        return UserPageableModel.builder()
-                .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
-                .pageNumber(pageNumber)
-                .pageSize(pageSize)
-                .numberOfUsers(pagedUsers.getTotalElements())
-                .totalPages(pagedUsers.getTotalPages())
-                .isLast(pagedUsers.isLast())
-                .build();
+        Page<Users> pagedUsers;
+        switch (status) {
+            case "all" -> {
+                pagedUsers = usersRepository.findAllUsersWithMembership(pageable);
+                return UserPageableModel.builder()
+                        .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
+                        .pageNumber(pageNumber)
+                        .pageSize(pageSize)
+                        .numberOfUsers(pagedUsers.getTotalElements())
+                        .totalPages(pagedUsers.getTotalPages())
+                        .isLast(pagedUsers.isLast())
+                        .isFirst(pagedUsers.isFirst())
+                        .hasPrevious(pagedUsers.hasPrevious())
+                        .hasNext(pagedUsers.hasNext())
+                        .build();
+            }
+            case "active" -> {
+                pagedUsers = usersRepository.findAllUsersWithActiveMembership(pageable);
+                return UserPageableModel.builder()
+                        .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
+                        .pageNumber(pageNumber)
+                        .pageSize(pageSize)
+                        .numberOfUsers(pagedUsers.getTotalElements())
+                        .totalPages(pagedUsers.getTotalPages())
+                        .isLast(pagedUsers.isLast())
+                        .isFirst(pagedUsers.isFirst())
+                        .hasPrevious(pagedUsers.hasPrevious())
+                        .hasNext(pagedUsers.hasNext())
+                        .build();
+            }
+            case "not-active" -> {
+                pagedUsers = usersRepository.findAllUsersWithNotActiveMembership(pageable);
+                return UserPageableModel.builder()
+                        .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
+                        .pageNumber(pageNumber)
+                        .pageSize(pageSize)
+                        .numberOfUsers(pagedUsers.getTotalElements())
+                        .totalPages(pagedUsers.getTotalPages())
+                        .isLast(pagedUsers.isLast())
+                        .isFirst(pagedUsers.isFirst())
+                        .hasPrevious(pagedUsers.hasPrevious())
+                        .hasNext(pagedUsers.hasNext())
+                        .build();
+            }
+            default ->
+                // Handle invalid status
+                    throw new IllegalArgumentException("Invalid status: " + status);
+        }
+
     }
 
     @Override
     public UsersModel getUserWithMembershipById(Long userId) {
         var user = usersRepository.findUserWithMembership(userId);
         if(user != null) return  UsersMapper.mapUsersToUsersModel(user);
-        else return null;
+        else throw new UserNotFoundException("User not found");
     }
 
     @Override
     public UsersModel getUserByEmail(String Email) {
-        return UsersMapper.mapUsersToUsersModel(usersRepository.findByEmail(Email).orElseThrow(() -> new NullPointerException("User not found")));
+        return UsersMapper.mapUsersToUsersModel(usersRepository.findByEmail(Email).orElseThrow(() -> new UserNotFoundException("User not found")));
 
     }
 
