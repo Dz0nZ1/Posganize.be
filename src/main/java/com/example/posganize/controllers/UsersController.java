@@ -25,9 +25,10 @@ public class UsersController {
 //    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<UserPageableModel> getAllUsers(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false ) int pageSize
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false ) int pageSize,
+            @RequestParam(value = "status", defaultValue = "all", required = false) String status
     ){
-        return new ResponseEntity<>(usersService.getAllUsers(pageNumber, pageSize), HttpStatus.OK);
+        return new ResponseEntity<>(usersService.getAllUsers(pageNumber, pageSize, status), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
