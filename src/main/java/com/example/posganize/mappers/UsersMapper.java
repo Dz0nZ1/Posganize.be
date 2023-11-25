@@ -11,14 +11,26 @@ public class UsersMapper {
 
 
     public static UsersModel mapUsersToUsersModel(Users users) {
-        return UsersModel.builder()
-                .firstName(users.getFirstName())
-                .lastName(users.getLastName())
-                .phoneNumber(users.getPhoneNumber())
-                .registrationDate(users.getRegistrationDate())
-                .email(users.getEmail())
-                .active(users.getMembership().getActive())
-                .build();
+       if(users.getMembership() != null) {
+           return UsersModel.builder()
+                   .firstName(users.getFirstName())
+                   .lastName(users.getLastName())
+                   .phoneNumber(users.getPhoneNumber())
+                   .registrationDate(users.getRegistrationDate())
+                   .email(users.getEmail())
+                   .active(users.getMembership().getActive())
+                   .build();
+       }
+       else {
+           return UsersModel.builder()
+                   .firstName(users.getFirstName())
+                   .lastName(users.getLastName())
+                   .phoneNumber(users.getPhoneNumber())
+                   .registrationDate(users.getRegistrationDate())
+                   .email(users.getEmail())
+                   .active(null)
+                   .build();
+       }
     }
 
 
