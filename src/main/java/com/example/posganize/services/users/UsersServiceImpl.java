@@ -29,7 +29,7 @@ public class UsersServiceImpl implements UsersService {
         Page<Users> pagedUsers;
         switch (status) {
             case "all" -> {
-                pagedUsers = usersRepository.findAllUsersWithMembership(pageable);
+                pagedUsers = usersRepository.findAll(pageable);
                 return UserPageableModel.builder()
                         .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
                         .pageNumber(pageNumber)
@@ -57,7 +57,7 @@ public class UsersServiceImpl implements UsersService {
                         .build();
             }
             case "not-active" -> {
-                pagedUsers = usersRepository.findAllUsersWithNotActiveMembership(pageable);
+                pagedUsers = usersRepository.findAllUsersWithoutActiveMembership(pageable);
                 return UserPageableModel.builder()
                         .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
                         .pageNumber(pageNumber)
