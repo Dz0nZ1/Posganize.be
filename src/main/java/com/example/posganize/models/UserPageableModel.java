@@ -18,4 +18,7 @@ public class UserPageableModel {
     private Long numberOfUsers;
     private int totalPages;
     private boolean isLast;
+    private boolean isFirst;
+    private boolean hasPrevious;
+    private boolean hasNext;
 }
