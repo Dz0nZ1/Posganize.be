@@ -1,13 +1,10 @@
 package com.example.posganize.services.schedule;
 
+import com.example.posganize.exceptions.ScheduleNotfoundException;
 import com.example.posganize.mappers.ScheduleMapper;
-
 import com.example.posganize.models.ScheduleModel;
-
 import com.example.posganize.repository.ScheduleRepository;
-
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -26,7 +23,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public ScheduleModel getScheduleById(Long scheduleId) {
-        return ScheduleMapper.mapScheduleToScheduleModel(scheduleRepository.findById(scheduleId).orElseThrow(() -> new NullPointerException("Schedule not found")));
+        return ScheduleMapper.mapScheduleToScheduleModel(scheduleRepository.findById(scheduleId).orElseThrow(() -> new ScheduleNotfoundException("Schedule not found")));
     }
 
     @Override
@@ -39,7 +36,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleModel updateSchedule(ScheduleModel schedule, Long scheduleID) {
         var entity = ScheduleMapper.mapScheduleModelToSchedule(schedule);
-        var newSchedule = scheduleRepository.findById(scheduleID).orElseThrow(() -> new NullPointerException("Schedule not found"));
+        var newSchedule = scheduleRepository.findById(scheduleID).orElseThrow(() -> new ScheduleNotfoundException("Schedule not found"));
         newSchedule.setName(entity.getName());
         newSchedule.setDay(entity.getDay());
         newSchedule.setTime(entity.getTime());

@@ -1,6 +1,8 @@
 package com.example.posganize.services.membership;
 
 
+import com.example.posganize.exceptions.MembershipNotFoundException;
+import com.example.posganize.exceptions.UserNotFoundException;
 import com.example.posganize.mappers.MembershipMapper;
 import com.example.posganize.models.CreateMembershipModel;
 import com.example.posganize.models.MembershipModel;
@@ -40,7 +42,7 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public MembershipModel createMembership(CreateMembershipModel membershipModel) {
-        var user = usersRepository.findById(membershipModel.getUserId()).orElseThrow(null);
+        var user = usersRepository.findById(membershipModel.getUserId()).orElseThrow(() -> new MembershipNotFoundException("Membership not found"));
         var entity = MembershipMapper.mapCreateMembershipModelToMembership(membershipModel);
         entity.setUser(user);
         membershipRepository.save(entity);
@@ -50,7 +52,7 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public MembershipModel updateMembership(MembershipModel membershipModel, Long membershipId) {
         var entity = MembershipMapper.mapMembershipModelToMembership(membershipModel);
-        var newMembership = membershipRepository.findById(membershipId).orElseThrow(() -> new NullPointerException("Membership not found"));
+        var newMembership = membershipRepository.findById(membershipId).orElseThrow(() -> new MembershipNotFoundException("Membership not found"));
 //        if(entity.getTrainings() != null) {
 //            newMembership.setTrainings(entity.getTrainings());
 //        }
@@ -82,7 +84,7 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public Map<String, Boolean> isActiveMembershipByUserId(Long userId) {
-        var user = usersRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found"));
+        var user = usersRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         var membership = membershipRepository.findByUser(user);
         var map = new HashMap<String, Boolean>();
         if(membership != null) {

@@ -19,6 +19,16 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             "INNER JOIN membership m ON u.user_id = m.user_id;", nativeQuery = true)
     Page<Users> findAllUsersWithMembership(Pageable pageable);
 
+    @Query(value = "SELECT u.*, m.active\n" +
+            "FROM Users u\n" +
+            "INNER JOIN membership m ON u.user_id = m.user_id WHERE m.active = 1;", nativeQuery = true)
+    Page<Users> findAllUsersWithActiveMembership(Pageable pageable);
+
+    @Query(value = "SELECT u.*, m.active\n" +
+            "FROM Users u\n" +
+            "INNER JOIN membership m ON u.user_id = m.user_id WHERE m.active = 0;", nativeQuery = true)
+    Page<Users> findAllUsersWithNotActiveMembership(Pageable pageable);
+
 
     @Query(value = "    SELECT u.*, m.active\n" +
             "    FROM Users u\n" +

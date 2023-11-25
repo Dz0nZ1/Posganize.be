@@ -7,7 +7,7 @@ import com.example.posganize.models.UsersModel;
 
 public interface UsersService {
 
-    UserPageableModel getAllUsers(int pageNumber, int pageSize);
+    UserPageableModel getAllUsers(int pageNumber, int pageSize, String status);
 
     UsersModel getUserWithMembershipById(Long userId);
 
