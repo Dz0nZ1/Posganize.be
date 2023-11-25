@@ -1,5 +1,6 @@
 package com.example.posganize.services.training;
 
+import com.example.posganize.exceptions.TrainingNotFoundException;
 import com.example.posganize.mappers.TrainingMapper;
 import com.example.posganize.models.TrainingModel;
 import com.example.posganize.repository.TrainingRepository;
@@ -22,7 +23,7 @@ public class TrainingServiceImpl implements TrainingService{
 
     @Override
     public TrainingModel getTrainingById(Long trainingId) {
-        return TrainingMapper.mapTrainingToTrainingModel(trainingRepository.findById(trainingId).orElseThrow(() -> new NullPointerException("News not found")));
+        return TrainingMapper.mapTrainingToTrainingModel(trainingRepository.findById(trainingId).orElseThrow(() -> new TrainingNotFoundException("Training not found")));
     }
 
     @Override
@@ -35,7 +36,7 @@ public class TrainingServiceImpl implements TrainingService{
     @Override
     public TrainingModel updateTraining(TrainingModel training, Long trainingId) {
         var entity = TrainingMapper.mapTrainingModelToTraining(training);
-        var newTraining = trainingRepository.findById(trainingId).orElseThrow(() -> new NullPointerException("News not found"));
+        var newTraining = trainingRepository.findById(trainingId).orElseThrow(() -> new TrainingNotFoundException("Training not found"));
         if (entity.getSchedule()!=null)
             newTraining.setSchedule(entity.getSchedule());
         if (entity.getName()!=null)

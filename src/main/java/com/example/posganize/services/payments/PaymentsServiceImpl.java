@@ -1,4 +1,5 @@
 package com.example.posganize.services.payments;
+import com.example.posganize.exceptions.PaymentNotFoundException;
 import com.example.posganize.mappers.PaymentsMapper;
 import com.example.posganize.models.PaymentsModel;
 import com.example.posganize.repository.PaymentsRepository;
@@ -22,7 +23,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Override
     public PaymentsModel getPayments(Long paymentsId) {
-        return PaymentsMapper.mapPaymentsToPaymentsModel(paymentsRepository.findById(paymentsId).orElseThrow(() -> new NullPointerException("Payments not found")));
+        return PaymentsMapper.mapPaymentsToPaymentsModel(paymentsRepository.findById(paymentsId).orElseThrow(() -> new PaymentNotFoundException("Payments not found")));
     }
 
     @Override
@@ -35,7 +36,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     public PaymentsModel updatePayments(Long paymentsId, PaymentsModel paymentsModel) {
         var entity = PaymentsMapper.mapPaymentsModelToPayments(paymentsModel);
-        var newPayments = paymentsRepository.findById(paymentsId).orElseThrow(() -> new NullPointerException("Payments not found"));
+        var newPayments = paymentsRepository.findById(paymentsId).orElseThrow(() -> new PaymentNotFoundException("Payments not found"));
         if(entity.getUser() != null) {
             newPayments.setUser(entity.getUser());
         }
