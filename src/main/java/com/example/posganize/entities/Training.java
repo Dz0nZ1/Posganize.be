@@ -1,13 +1,11 @@
 package com.example.posganize.entities;
 
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
+
 
 @Entity
 @Data
@@ -24,12 +22,10 @@ public class Training {
     private String name;
     private Double price;
 
-    @ManyToMany
-    @JoinTable(
-            name = "training_schedule",
-            joinColumns = @JoinColumn(name = "training_id"),
-            inverseJoinColumns = @JoinColumn(name = "schedule_id"))
-    private List<Schedule> schedule;
+    @JsonManagedReference
+    @ToString.Exclude
+    @OneToMany(mappedBy = "training")
+    private List<Schedule> schedules;
 
 
 }

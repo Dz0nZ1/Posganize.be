@@ -3,44 +3,48 @@ package com.example.posganize.mappers;
 import com.example.posganize.entities.Training;
 import com.example.posganize.models.TrainingModel;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TrainingMapper {
 
     public static TrainingModel mapTrainingToTrainingModel(Training training) {
-        return TrainingModel.builder()
-                .schedule(ScheduleMapper.mapScheduleListToScheduleModelList(training.getSchedule()))
+        var model = TrainingModel.builder()
                 .name(training.getName())
                 .price(training.getPrice())
                 .build();
+        if(training.getSchedules() != null) model.setSchedule(ScheduleMapper.mapScheduleListToScheduleModelList(training.getSchedules()));
+        else model.setSchedule(null);
+        return model;
     }
 
 
     public static Training mapTrainingModelToTraining(TrainingModel training) {
-        return Training.builder()
-                .schedule(ScheduleMapper.mapScheduleListModelToScheduleList(training.getSchedule()))
+        var entity =  Training.builder()
                 .name(training.getName())
                 .price(training.getPrice())
                 .build();
+        if(training.getSchedule() != null) entity.setSchedules((ScheduleMapper.mapScheduleListModelToScheduleList(training.getSchedule())));
+        else entity.setSchedules(null);
+        return entity;
     }
 
 
-    public static List<TrainingModel> mapTrainingListToTrainingModelList(List<Training> training) {
-        List<TrainingModel> modelList = new ArrayList<>();
+    public static Set<TrainingModel> mapTrainingSetToTrainingModelSet(Set<Training> training) {
+        Set<TrainingModel> modelSet = new HashSet<>();
         for (Training entity : training) {
-            modelList.add(mapTrainingToTrainingModel(entity));
+            modelSet.add(mapTrainingToTrainingModel(entity));
         }
-        return modelList;
+        return modelSet;
 
     }
 
-    public static List<Training> mapTrainingModelListToTrainingList(List<TrainingModel> training) {
-        List<Training> modelList = new ArrayList<>();
+    public static Set<Training> mapTrainingModelSetToTrainingSet(Set<TrainingModel> training) {
+        Set<Training> modelSet = new HashSet<>();
         for (TrainingModel model : training) {
-            modelList.add(mapTrainingModelToTraining(model));
+            modelSet.add(mapTrainingModelToTraining(model));
         }
-        return modelList;
+        return modelSet;
 
     }
 
