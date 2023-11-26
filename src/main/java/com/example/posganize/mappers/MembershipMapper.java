@@ -12,30 +12,33 @@ public class MembershipMapper {
 
 
     public static MembershipModel mapMembershipToMembershipModel(Membership membership) {
-        return MembershipModel.builder()
+        var model =  MembershipModel.builder()
                 .user(UserMembershipModel.builder()
                         .userId(membership.getUser().getUser_id())
                         .firstName(membership.getUser().getFirstName())
                         .lastName(membership.getUser().getLastName())
                         .build())
-                .trainings(TrainingMapper.mapTrainingListToTrainingModelList(membership.getTrainings()))
                 .startDate(membership.getStartDate())
                 .expireDate(membership.getExpireDate())
                 .price(membership.getPrice())
                 .active(membership.getActive())
                 .build();
+        if(membership.getTrainings() != null) model.setTrainings((TrainingMapper.mapTrainingSetToTrainingModelSet(membership.getTrainings())));
+        else model.setTrainings(null);
+        return model;
     }
 
 
     public static Membership mapMembershipModelToMembership(MembershipModel membership) {
-        return Membership.builder()
-//                .user(membership.getUser())
-                .trainings(TrainingMapper.mapTrainingModelListToTrainingList(membership.getTrainings()))
+        var entity = Membership.builder()
                 .startDate(membership.getStartDate())
                 .expireDate(membership.getExpireDate())
                 .price(membership.getPrice())
                 .active(membership.getActive())
                 .build();
+        if(membership.getTrainings() != null) entity.setTrainings((TrainingMapper.mapTrainingModelSetToTrainingSet(membership.getTrainings())));
+        else entity.setTrainings(null);
+        return entity;
     }
 
     public static Membership mapCreateMembershipModelToMembership(CreateMembershipModel membership) {
