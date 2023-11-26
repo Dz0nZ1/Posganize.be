@@ -2,7 +2,10 @@ package com.example.posganize.exceptions;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -37,7 +40,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorModel> handleAccessDeniedException(AccessDeniedException ex) {
         var error = ErrorModel.builder()
-                .errorType(ACCESS_DENIED_ERROR)
+                .errorType(ACCESS_DENIED_ERROR_TYPE)
                 .statusCode(HttpStatus.FORBIDDEN.value())
                 .message(ex.getMessage())
                 .time(LocalDateTime.now())
@@ -122,9 +125,33 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ErrorModel> handleBadCredentialsException(BadCredentialsException ex) {
+        var error =  ErrorModel.builder()
+                .errorType(CREDENTIALS_TYPE)
+                .statusCode(HttpStatus.UNAUTHORIZED.value())
+                .message(ex.getMessage())
+                .time(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorModel> handleUsernameNotFoundExceptionException(UsernameNotFoundException ex) {
+        var error =  ErrorModel.builder()
+                .errorType(USER_ERROR_TYPE)
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .time(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Map<String,String>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex)
     {
         Map<String, String> response = new HashMap<>();
@@ -145,5 +172,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({ HttpMessageNotReadableException.class })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Map<String, String>> resolveException(HttpMessageNotReadableException ex) {
+        Map<String, String> message = new HashMap<>();
+        message.put("message", "Please provide Request Body in valid JSON format");
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
 
 }
