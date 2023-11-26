@@ -13,6 +13,7 @@ public class TrainingMapper {
                 .id(training.getTraining_id())
                 .name(training.getName())
                 .image(training.getImage())
+                .description(training.getDescription())
                 .price(training.getPrice())
                 .build();
         if(training.getSchedules() != null) model.setSchedule(ScheduleMapper.mapScheduleListToScheduleModelList(training.getSchedules()));
@@ -25,6 +26,7 @@ public class TrainingMapper {
         var entity =  Training.builder()
                 .training_id(training.getId())
                 .name(training.getName())
+                .description(training.getDescription())
                 .image(training.getImage())
                 .price(training.getPrice())
                 .build();

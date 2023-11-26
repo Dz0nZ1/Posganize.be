@@ -38,6 +38,13 @@ public class TrainingServiceImpl implements TrainingService{
     public TrainingModel updateTraining(TrainingModel training, Long trainingId) {
         var entity = TrainingMapper.mapTrainingModelToTraining(training);
         var newTraining = trainingRepository.findById(trainingId).orElseThrow(() -> new TrainingNotFoundException("Training not found"));
+
+        if(entity.getDescription() != null) {
+            newTraining.setDescription(entity.getDescription());
+        }
+        if(entity.getImage() != null) {
+            newTraining.setImage(entity.getImage());
+        }
         if (entity.getSchedules()!=null)
             newTraining.setSchedules(entity.getSchedules());
         if (entity.getName()!=null)
