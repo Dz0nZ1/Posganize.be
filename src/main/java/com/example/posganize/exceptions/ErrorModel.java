@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class ErrorModel {
-    private String type;
+    private String errorType;
     private Integer statusCode;
     private String message;
     private LocalDateTime time;
