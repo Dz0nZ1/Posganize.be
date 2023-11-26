@@ -3,6 +3,7 @@ package com.example.posganize.services.users;
 
 import com.example.posganize.entities.Users;
 import com.example.posganize.exceptions.UserNotFoundException;
+import com.example.posganize.exceptions.UserStatusException;
 import com.example.posganize.mappers.UsersMapper;
 import com.example.posganize.models.UpdateUsersModel;
 import com.example.posganize.models.UserPageableModel;
@@ -30,51 +31,29 @@ public class UsersServiceImpl implements UsersService {
         switch (status) {
             case "all" -> {
                 pagedUsers = usersRepository.findAll(pageable);
-                return UserPageableModel.builder()
-                        .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
-                        .pageNumber(pageNumber)
-                        .pageSize(pageSize)
-                        .numberOfUsers(pagedUsers.getTotalElements())
-                        .totalPages(pagedUsers.getTotalPages())
-                        .isLast(pagedUsers.isLast())
-                        .isFirst(pagedUsers.isFirst())
-                        .hasPrevious(pagedUsers.hasPrevious())
-                        .hasNext(pagedUsers.hasNext())
-                        .build();
             }
             case "active" -> {
                 pagedUsers = usersRepository.findAllUsersWithActiveMembership(pageable);
-                return UserPageableModel.builder()
-                        .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
-                        .pageNumber(pageNumber)
-                        .pageSize(pageSize)
-                        .numberOfUsers(pagedUsers.getTotalElements())
-                        .totalPages(pagedUsers.getTotalPages())
-                        .isLast(pagedUsers.isLast())
-                        .isFirst(pagedUsers.isFirst())
-                        .hasPrevious(pagedUsers.hasPrevious())
-                        .hasNext(pagedUsers.hasNext())
-                        .build();
             }
             case "not-active" -> {
                 pagedUsers = usersRepository.findAllUsersWithoutActiveMembership(pageable);
-                return UserPageableModel.builder()
-                        .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
-                        .pageNumber(pageNumber)
-                        .pageSize(pageSize)
-                        .numberOfUsers(pagedUsers.getTotalElements())
-                        .totalPages(pagedUsers.getTotalPages())
-                        .isLast(pagedUsers.isLast())
-                        .isFirst(pagedUsers.isFirst())
-                        .hasPrevious(pagedUsers.hasPrevious())
-                        .hasNext(pagedUsers.hasNext())
-                        .build();
+
             }
             default ->
                 // Handle invalid status
-                    throw new IllegalArgumentException("Invalid status: " + status);
+                    throw new UserStatusException("Status not found: " + status);
         }
-
+        return UserPageableModel.builder()
+                .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .numberOfUsers(pagedUsers.getTotalElements())
+                .totalPages(pagedUsers.getTotalPages())
+                .isLast(pagedUsers.isLast())
+                .isFirst(pagedUsers.isFirst())
+                .hasPrevious(pagedUsers.hasPrevious())
+                .hasNext(pagedUsers.hasNext())
+                .build();
     }
 
     @Override
