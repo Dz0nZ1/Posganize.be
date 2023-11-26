@@ -10,7 +10,9 @@ public class TrainingMapper {
 
     public static TrainingModel mapTrainingToTrainingModel(Training training) {
         var model = TrainingModel.builder()
+                .id(training.getTraining_id())
                 .name(training.getName())
+                .image(training.getImage())
                 .price(training.getPrice())
                 .build();
         if(training.getSchedules() != null) model.setSchedule(ScheduleMapper.mapScheduleListToScheduleModelList(training.getSchedules()));
@@ -21,7 +23,9 @@ public class TrainingMapper {
 
     public static Training mapTrainingModelToTraining(TrainingModel training) {
         var entity =  Training.builder()
+                .training_id(training.getId())
                 .name(training.getName())
+                .image(training.getImage())
                 .price(training.getPrice())
                 .build();
         if(training.getSchedule() != null) entity.setSchedules((ScheduleMapper.mapScheduleListModelToScheduleList(training.getSchedule())));

@@ -21,6 +21,7 @@ public class Training {
 
     private String name;
     private Double price;
+    private String image;
 
     @JsonManagedReference
     @ToString.Exclude

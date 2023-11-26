@@ -13,6 +13,7 @@ public class MembershipMapper {
 
     public static MembershipModel mapMembershipToMembershipModel(Membership membership) {
         var model =  MembershipModel.builder()
+                .id(membership.getMembership_id())
                 .user(UserMembershipModel.builder()
                         .userId(membership.getUser().getUser_id())
                         .firstName(membership.getUser().getFirstName())
@@ -31,6 +32,7 @@ public class MembershipMapper {
 
     public static Membership mapMembershipModelToMembership(MembershipModel membership) {
         var entity = Membership.builder()
+                .membership_id(membership.getId())
                 .startDate(membership.getStartDate())
                 .expireDate(membership.getExpireDate())
                 .price(membership.getPrice())

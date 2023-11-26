@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ScheduleModel {
+    private Long id;
     private String name;
     private String day;
     private String time;

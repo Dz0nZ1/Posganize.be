@@ -14,6 +14,7 @@ import java.util.Set;
 @Builder
 public class MembershipModel {
 
+    private Long id;
     private LocalDateTime startDate;
     private LocalDateTime expireDate;
     private Double price;
