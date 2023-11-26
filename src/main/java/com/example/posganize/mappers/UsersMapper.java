@@ -11,26 +11,21 @@ public class UsersMapper {
 
 
     public static UsersModel mapUsersToUsersModel(Users users) {
+
+        var model = UsersModel.builder()
+                .id(users.getUser_id())
+                .firstName(users.getFirstName())
+                .lastName(users.getLastName())
+                .phoneNumber(users.getPhoneNumber())
+                .registrationDate(users.getRegistrationDate())
+                .email(users.getEmail())
+                .build();
+
        if(users.getMembership() != null) {
-           return UsersModel.builder()
-                   .firstName(users.getFirstName())
-                   .lastName(users.getLastName())
-                   .phoneNumber(users.getPhoneNumber())
-                   .registrationDate(users.getRegistrationDate())
-                   .email(users.getEmail())
-                   .active(users.getMembership().getActive())
-                   .build();
+           model.setActive((users.getMembership().getActive()));
        }
-       else {
-           return UsersModel.builder()
-                   .firstName(users.getFirstName())
-                   .lastName(users.getLastName())
-                   .phoneNumber(users.getPhoneNumber())
-                   .registrationDate(users.getRegistrationDate())
-                   .email(users.getEmail())
-                   .active(null)
-                   .build();
-       }
+       else model.setActive(null);
+       return model;
     }
 
 
