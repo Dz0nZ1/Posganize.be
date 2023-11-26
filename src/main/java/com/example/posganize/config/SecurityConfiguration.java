@@ -35,11 +35,36 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
 
 
-    private final String[] whiteList = {"/api/v1/auth/register", "/api/v1/auth/login",
-            "/generate-qr-code", "/api/v1/users/all", "/api/v1/users/get/**",
-            "/api/v1/users/update/**", "/api/v1/users/delete/**", "/api/v1/membership/all",
-            "/api/v1/membership/create", "/api/v1/membership/get/**", "/api/v1/membership/active/**", "/api/v1/schedule/all",
-            "/api/v1/training/all", "/api/v1/training/get/**", "/api/v1/training/create"};
+    private final String[] whiteList = {
+            "/api/v1/auth/register",
+            "/api/v1/auth/login",
+
+            "/generate-qr-code",
+
+            "/api/v1/users/all",
+            "/api/v1/users/get/**",
+            "/api/v1/users/update/**",
+            "/api/v1/users/delete/**",
+
+            "/api/v1/membership/all",
+            "/api/v1/membership/create",
+            "/api/v1/membership/get/**",
+            "/api/v1/membership/update/**",
+            "/api/v1/membership/delete/**",
+            "/api/v1/membership/active/**",
+
+            "/api/v1/schedule/all",
+            "/api/v1/schedule/create",
+            "/api/v1/schedule/get/**",
+            "/api/v1/schedule/update/**",
+            "/api/v1/schedule/delete/**",
+
+            "/api/v1/training/all",
+            "/api/v1/training/get/**",
+            "/api/v1/training/create",
+            "/api/v1/training/delete/**",
+            "/api/v1/training/update/**",
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
