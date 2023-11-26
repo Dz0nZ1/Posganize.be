@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/training")
@@ -21,7 +21,7 @@ public class TrainingController {
 
     @GetMapping("/all")
 //    @PreAuthorize("hasAuthority('admin:read')")
-    public ResponseEntity<List<TrainingModel>> getAllClubNews(){
+    public ResponseEntity<Set<TrainingModel>> getAllClubNews(){
         return new ResponseEntity<>(trainingService.getAllTraining(), HttpStatus.OK);
     }
 

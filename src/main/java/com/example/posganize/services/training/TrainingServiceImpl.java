@@ -6,7 +6,8 @@ import com.example.posganize.models.TrainingModel;
 import com.example.posganize.repository.TrainingRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
+
 @Service
 public class TrainingServiceImpl implements TrainingService{
 
@@ -17,8 +18,8 @@ public class TrainingServiceImpl implements TrainingService{
     }
 
     @Override
-    public List<TrainingModel> getAllTraining() {
-        return TrainingMapper.mapTrainingListToTrainingModelList(trainingRepository.findAll());
+    public Set<TrainingModel> getAllTraining() {
+        return TrainingMapper.mapTrainingSetToTrainingModelSet(trainingRepository.findAllSets());
     }
 
     @Override
@@ -37,8 +38,8 @@ public class TrainingServiceImpl implements TrainingService{
     public TrainingModel updateTraining(TrainingModel training, Long trainingId) {
         var entity = TrainingMapper.mapTrainingModelToTraining(training);
         var newTraining = trainingRepository.findById(trainingId).orElseThrow(() -> new TrainingNotFoundException("Training not found"));
-        if (entity.getSchedule()!=null)
-            newTraining.setSchedule(entity.getSchedule());
+        if (entity.getSchedules()!=null)
+            newTraining.setSchedules(entity.getSchedules());
         if (entity.getName()!=null)
             newTraining.setName(entity.getName());
         if (entity.getPrice()!=null)

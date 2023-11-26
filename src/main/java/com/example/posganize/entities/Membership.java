@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -39,7 +39,7 @@ public class Membership {
             name = "membership_training",
             joinColumns = @JoinColumn(name = "membership_id"),
             inverseJoinColumns = @JoinColumn(name = "training_id"))
-    private List<Training> trainings;
+    private Set<Training> trainings;
 
     private Double price;
     private Boolean active;

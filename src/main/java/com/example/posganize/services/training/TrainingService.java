@@ -2,12 +2,13 @@ package com.example.posganize.services.training;
 
 import com.example.posganize.models.TrainingModel;
 
-import java.util.List;
+
+import java.util.Set;
 
 public interface TrainingService {
 
 
-    List<TrainingModel> getAllTraining();
+    Set<TrainingModel> getAllTraining();
 
     TrainingModel getTrainingById(Long trainingId);
 

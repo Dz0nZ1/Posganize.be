@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +19,6 @@ public class MembershipModel {
     private Double price;
     private Boolean active;
     private UserMembershipModel user;
-    private List<TrainingModel> trainings;
+    private Set<TrainingModel> trainings;
 
 }
