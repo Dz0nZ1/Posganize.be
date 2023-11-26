@@ -11,6 +11,7 @@ public class ScheduleMapper {
 
     public static ScheduleModel mapScheduleToScheduleModel(Schedule schedule) {
         return ScheduleModel.builder()
+                .id(schedule.getSchedule_id())
                 .name(schedule.getName())
                 .day(schedule.getDay())
                 .time(schedule.getTime())
@@ -19,7 +20,7 @@ public class ScheduleMapper {
 
 
     public static Schedule mapScheduleModelToSchedule(ScheduleModel schedule){
-        return Schedule.builder().name(schedule.getName()).time(schedule.getTime()).day(schedule.getDay()).build();
+        return Schedule.builder().schedule_id(schedule.getId()).name(schedule.getName()).time(schedule.getTime()).day(schedule.getDay()).build();
     }
 
     public static List<ScheduleModel> mapScheduleListToScheduleModelList(List<Schedule> schedules){
