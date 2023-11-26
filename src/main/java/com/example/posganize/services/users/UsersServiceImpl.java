@@ -29,19 +29,10 @@ public class UsersServiceImpl implements UsersService {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<Users> pagedUsers;
         switch (status) {
-            case "all" -> {
-                pagedUsers = usersRepository.findAll(pageable);
-            }
-            case "active" -> {
-                pagedUsers = usersRepository.findAllUsersWithActiveMembership(pageable);
-            }
-            case "not-active" -> {
-                pagedUsers = usersRepository.findAllUsersWithoutActiveMembership(pageable);
-
-            }
-            default ->
-                // Handle invalid status
-                    throw new UserStatusException("Status not found: " + status);
+            case "all" -> pagedUsers = usersRepository.findAll(pageable);
+            case "active" -> pagedUsers = usersRepository.findAllUsersWithActiveMembership(pageable);
+            case "not-active" -> pagedUsers = usersRepository.findAllUsersWithoutActiveMembership(pageable);
+            default -> throw new UserStatusException("Status not found: " + status);
         }
         return UserPageableModel.builder()
                 .users(UsersMapper.mapUsersPageableToUsersModel(pagedUsers))
