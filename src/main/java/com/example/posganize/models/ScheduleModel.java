@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ScheduleModel {
     private Long id;
-    private String name;
-    private String day;
-    private String time;
+    private String scheduleName;
+    private String scheduleDay;
+    private String scheduleTime;
 }
