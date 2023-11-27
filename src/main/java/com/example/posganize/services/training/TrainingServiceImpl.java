@@ -1,20 +1,29 @@
 package com.example.posganize.services.training;
 
+import com.example.posganize.entities.Schedule;
 import com.example.posganize.exceptions.TrainingNotFoundException;
+import com.example.posganize.mappers.ScheduleMapper;
 import com.example.posganize.mappers.TrainingMapper;
+import com.example.posganize.models.ScheduleModel;
 import com.example.posganize.models.TrainingModel;
+import com.example.posganize.repository.ScheduleRepository;
 import com.example.posganize.repository.TrainingRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TrainingServiceImpl implements TrainingService{
 
     private final TrainingRepository trainingRepository;
 
-    public TrainingServiceImpl(TrainingRepository trainingRepository) {
+    private final ScheduleRepository scheduleRepository;
+
+    public TrainingServiceImpl(TrainingRepository trainingRepository, ScheduleRepository scheduleRepository) {
         this.trainingRepository = trainingRepository;
+        this.scheduleRepository = scheduleRepository;
     }
 
     @Override
@@ -29,9 +38,20 @@ public class TrainingServiceImpl implements TrainingService{
 
     @Override
     public TrainingModel createTraining(TrainingModel training) {
-        var entity = TrainingMapper.mapTrainingModelToTraining(training);
-        trainingRepository.save(entity);
-        return TrainingMapper.mapTrainingToTrainingModel(entity);
+        var trainingEntity = TrainingMapper.mapTrainingModelToTraining(training);
+        trainingRepository.save(trainingEntity);
+        List<ScheduleModel> scheduleModels = training.getSchedule();
+        List<Schedule> schedules = scheduleModels.stream()
+                .map(scheduleModel -> {
+                    Schedule schedule = ScheduleMapper.mapScheduleModelToSchedule(scheduleModel);
+                    schedule.setTraining(trainingEntity);
+                    scheduleRepository.save(schedule);
+                    return schedule;
+                })
+                .collect(Collectors.toList());
+        trainingEntity.setSchedules(schedules);
+        trainingRepository.save(trainingEntity);
+        return TrainingMapper.mapTrainingToTrainingModel(trainingEntity);
     }
 
     @Override
