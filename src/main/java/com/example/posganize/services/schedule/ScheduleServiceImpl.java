@@ -37,9 +37,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     public ScheduleModel updateSchedule(ScheduleModel schedule, Long scheduleID) {
         var entity = ScheduleMapper.mapScheduleModelToSchedule(schedule);
         var newSchedule = scheduleRepository.findById(scheduleID).orElseThrow(() -> new ScheduleNotfoundException("Schedule not found"));
-        newSchedule.setName(entity.getName());
-        newSchedule.setDay(entity.getDay());
-        newSchedule.setTime(entity.getTime());
+        newSchedule.setScheduleName(entity.getScheduleName());
+        newSchedule.setScheduleDay(entity.getScheduleDay());
+        newSchedule.setScheduleTime(entity.getScheduleTime());
         scheduleRepository.save(newSchedule);
 
         return ScheduleMapper.mapScheduleToScheduleModel(newSchedule);

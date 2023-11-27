@@ -14,9 +14,9 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long schedule_id;
-    private String name;
-    private String day;
-    private String time;
+    private String scheduleName;
+    private String scheduleDay;
+    private String scheduleTime;
     @ManyToOne
     @JoinColumn(name = "training_id")
     private Training training;
