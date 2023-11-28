@@ -4,6 +4,7 @@ package com.example.posganize.services.membership;
 import com.example.posganize.exceptions.MembershipNotFoundException;
 import com.example.posganize.exceptions.UserNotFoundException;
 import com.example.posganize.mappers.MembershipMapper;
+import com.example.posganize.mappers.TrainingMapper;
 import com.example.posganize.models.CreateMembershipModel;
 import com.example.posganize.models.MembershipModel;
 import com.example.posganize.repository.MembershipRepository;
@@ -45,6 +46,7 @@ public class MembershipServiceImpl implements MembershipService {
         var user = usersRepository.findById(membershipModel.getUserId()).orElseThrow(() -> new MembershipNotFoundException("Membership not found"));
         var entity = MembershipMapper.mapCreateMembershipModelToMembership(membershipModel);
         entity.setUser(user);
+        entity.setTrainings(TrainingMapper.mapTrainingModelSetToTrainingSet(membershipModel.getTrainings()));
         membershipRepository.save(entity);
         return MembershipMapper.mapMembershipToMembershipModel(entity);
     }
@@ -53,9 +55,6 @@ public class MembershipServiceImpl implements MembershipService {
     public MembershipModel updateMembership(MembershipModel membershipModel, Long membershipId) {
         var entity = MembershipMapper.mapMembershipModelToMembership(membershipModel);
         var newMembership = membershipRepository.findById(membershipId).orElseThrow(() -> new MembershipNotFoundException("Membership not found"));
-//        if(entity.getTrainings() != null) {
-//            newMembership.setTrainings(entity.getTrainings());
-//        }
         if(entity.getUser() != null) {
             newMembership.setUser(entity.getUser());
         }
