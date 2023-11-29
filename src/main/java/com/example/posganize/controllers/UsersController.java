@@ -33,8 +33,8 @@ public class UsersController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<UsersModel>getUserWithMembershipById(@PathVariable("id") Long userId){
-        return new ResponseEntity<>(usersService.getUserWithMembershipById(userId), HttpStatus.OK);
+    public ResponseEntity<UsersModel>getUserById(@PathVariable("id") Long userId){
+        return new ResponseEntity<>(usersService.getUserById(userId), HttpStatus.OK);
     }
 
     @GetMapping("/email/{email}")

@@ -9,7 +9,7 @@ public interface UsersService {
 
     UserPageableModel getAllUsers(int pageNumber, int pageSize, String status);
 
-    UsersModel getUserWithMembershipById(Long userId);
+    UsersModel getUserById(Long userId);
 
     UsersModel getUserByEmail(String Email);
 
