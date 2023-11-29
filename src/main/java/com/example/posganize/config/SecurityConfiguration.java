@@ -55,7 +55,6 @@ public class SecurityConfiguration {
 
             "/api/v1/schedule/all",
             "/api/v1/schedule/create",
-            "/api/v1/schedule/create/**",
             "/api/v1/schedule/get/**",
             "/api/v1/schedule/update/**",
             "/api/v1/schedule/delete/**",
