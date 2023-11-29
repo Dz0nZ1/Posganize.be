@@ -48,8 +48,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UsersModel getUserWithMembershipById(Long userId) {
-        var user = usersRepository.findUserWithMembership(userId);
+    public UsersModel getUserById(Long userId) {
+        var user = usersRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        if(user.getMemberships() == null) {
+            user = usersRepository.findUserWithMembership(userId);
+        }
         if(user != null) return  UsersMapper.mapUsersToUsersModel(user);
         else throw new UserNotFoundException("User not found");
     }
