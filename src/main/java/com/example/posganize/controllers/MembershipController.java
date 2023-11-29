@@ -30,8 +30,14 @@ public class MembershipController {
 
     @GetMapping("/get/{id}")
 //    @PreAuthorize("hasAuthority('admin:read')")
-    public ResponseEntity<MembershipModel> getClubMembership(@PathVariable("id") Long membershipId){
+    public ResponseEntity<MembershipModel> getMembership(@PathVariable("id") Long membershipId){
         return new ResponseEntity<>(membershipService.getMembership(membershipId), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}")
+//    @PreAuthorize("hasAuthority('admin:read')")
+    public ResponseEntity<List<MembershipModel>> getMembershipByUserId(@PathVariable("id") Long userId){
+        return new ResponseEntity<>(membershipService.getAllMembershipByUserId(userId), HttpStatus.OK);
     }
 
     @PostMapping("/create")
