@@ -24,9 +24,8 @@ public class Membership {
 
     private LocalDateTime expireDate;
 
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private Users user;
 
     @JsonManagedReference
