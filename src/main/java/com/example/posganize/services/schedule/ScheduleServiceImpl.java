@@ -1,9 +1,11 @@
 package com.example.posganize.services.schedule;
 
 import com.example.posganize.exceptions.ScheduleNotfoundException;
+import com.example.posganize.exceptions.TrainingNotFoundException;
 import com.example.posganize.mappers.ScheduleMapper;
 import com.example.posganize.models.ScheduleModel;
 import com.example.posganize.repository.ScheduleRepository;
+import com.example.posganize.repository.TrainingRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -12,8 +14,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
-    public ScheduleServiceImpl(ScheduleRepository scheduleRepository) {
+    private final TrainingRepository trainingRepository;
+
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, TrainingRepository trainingRepository) {
         this.scheduleRepository = scheduleRepository;
+        this.trainingRepository = trainingRepository;
     }
 
     @Override
@@ -29,6 +34,14 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleModel createSchedule(ScheduleModel schedule) {
         var entity = ScheduleMapper.mapScheduleModelToSchedule(schedule);
+        scheduleRepository.save(entity);
+        return ScheduleMapper.mapScheduleToScheduleModel(entity);
+    }
+
+    @Override
+    public ScheduleModel createScheduleByTrainingId(ScheduleModel schedule, Long trainingId) {
+        var entity = ScheduleMapper.mapScheduleModelToSchedule(schedule);
+        entity.setTraining(trainingRepository.findById(trainingId).orElseThrow(() -> new TrainingNotFoundException("Training not found")));
         scheduleRepository.save(entity);
         return ScheduleMapper.mapScheduleToScheduleModel(entity);
     }

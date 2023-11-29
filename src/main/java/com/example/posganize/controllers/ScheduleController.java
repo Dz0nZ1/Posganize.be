@@ -41,6 +41,12 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.createSchedule(schedule), HttpStatus.OK);
     }
 
+    @PostMapping("/create/{id}")
+//    @PreAuthorize("hasAuthority('admin:create')")
+    public ResponseEntity<ScheduleModel> createSchedule(@PathVariable("id") Long trainingId, @RequestBody ScheduleModel schedule){
+        return new ResponseEntity<>(scheduleService.createScheduleByTrainingId(schedule, trainingId), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
     public ResponseEntity<ScheduleModel> updateSchedule(@PathVariable("id") Long scheduleId, @RequestBody ScheduleModel schedule){
