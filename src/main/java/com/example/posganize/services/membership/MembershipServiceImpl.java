@@ -42,6 +42,12 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
+    public List<MembershipModel> getAllMembershipByUserId(Long userId) {
+        return MembershipMapper.mapMembershipListToMembershipModelList(membershipRepository.findAllMembershipByUserId(userId));
+    }
+
+
+    @Override
     public MembershipModel createMembership(CreateMembershipModel membershipModel) {
         var user = usersRepository.findById(membershipModel.getUserId()).orElseThrow(() -> new MembershipNotFoundException("Membership not found"));
         var entity = MembershipMapper.mapCreateMembershipModelToMembership(membershipModel);

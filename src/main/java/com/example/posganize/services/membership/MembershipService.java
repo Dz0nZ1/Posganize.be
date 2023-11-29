@@ -12,6 +12,8 @@ public interface MembershipService {
 
     MembershipModel getMembership(Long membershipId);
 
+    List<MembershipModel> getAllMembershipByUserId(Long userId);
+
     MembershipModel createMembership (CreateMembershipModel membershipModel);
 
     MembershipModel updateMembership (MembershipModel membershipModel, Long membershipId);
