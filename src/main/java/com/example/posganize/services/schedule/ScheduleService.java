@@ -12,6 +12,8 @@ public interface ScheduleService {
 
     ScheduleModel createSchedule(ScheduleModel schedule);
 
+    ScheduleModel createScheduleByTrainingId(ScheduleModel scheduleModel, Long trainingId);
+
     ScheduleModel updateSchedule(ScheduleModel schedule , Long scheduleID);
 
     void deleteSchedule(Long scheduleId);
