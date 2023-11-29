@@ -49,6 +49,7 @@ public class SecurityConfiguration {
             "/api/v1/membership/all",
             "/api/v1/membership/create",
             "/api/v1/membership/get/**",
+            "/api/v1/membership/user/**",
             "/api/v1/membership/update/**",
             "/api/v1/membership/delete/**",
             "/api/v1/membership/active/**",

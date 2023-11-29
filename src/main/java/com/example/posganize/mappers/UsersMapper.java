@@ -1,4 +1,5 @@
 package com.example.posganize.mappers;
+import com.example.posganize.entities.Membership;
 import com.example.posganize.entities.Users;
 import com.example.posganize.models.UpdateUsersModel;
 import com.example.posganize.models.UsersModel;
@@ -21,8 +22,11 @@ public class UsersMapper {
                 .email(users.getEmail())
                 .build();
 
-       if(users.getMembership() != null) {
-           model.setActive((users.getMembership().getActive()));
+       if(users.getMemberships() != null) {
+           for (Membership user : users.getMemberships()) {
+               model.setActive(user.getActive());
+           }
+
        }
        else model.setActive(null);
        return model;

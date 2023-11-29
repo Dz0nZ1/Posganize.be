@@ -34,10 +34,8 @@ public class Users implements UserDetails {
     private RoleEnum role;
     @OneToMany(mappedBy = "users")
     private List<Token> tokens;
-    @JsonManagedReference
-    @ToString.Exclude
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Membership membership;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Membership> memberships;
     @JsonManagedReference
     @ToString.Exclude
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
