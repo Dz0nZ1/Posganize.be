@@ -20,19 +20,34 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     Page<Users> findAllUsersWithMembership(Pageable pageable);
 
     @Query(value = "SELECT u.*, m.active\n" +
-            "FROM Users u\n" +
-            "INNER JOIN membership m ON u.user_id = m.user_id WHERE m.active = 1;", nativeQuery = true)
+            "FROM users u\n" +
+            "INNER JOIN membership m ON u.user_id = m.user_id\n" +
+            "WHERE m.expire_date = (\n" +
+            "    SELECT MAX(expire_date)\n" +
+            "    FROM membership\n" +
+            "    WHERE user_id = u.user_id\n" +
+            ") AND m.active = 1", nativeQuery = true)
     Page<Users> findAllUsersWithActiveMembership(Pageable pageable);
 
     @Query(value = "SELECT u.*, m.active\n" +
-            "FROM Users u\n" +
-            "INNER JOIN membership m ON u.user_id = m.user_id WHERE m.active = 0;", nativeQuery = true)
+            "FROM users u\n" +
+            "INNER JOIN membership m ON u.user_id = m.user_id\n" +
+            "WHERE m.expire_date = (\n" +
+            "    SELECT MAX(expire_date)\n" +
+            "    FROM membership\n" +
+            "    WHERE user_id = u.user_id\n" +
+            ") AND m.active = 0", nativeQuery = true)
     Page<Users> findAllUsersWithoutActiveMembership(Pageable pageable);
 
 
-    @Query(value = "    SELECT u.*, m.active\n" +
-            "    FROM Users u\n" +
-            "    INNER JOIN membership m ON u.user_id = m.user_id WHERE u.user_id = :userId", nativeQuery = true)
+    @Query(value = "SELECT u.*, m.active\n" +
+            "FROM users u\n" +
+            "INNER JOIN membership m ON u.user_id = m.user_id\n" +
+            "WHERE m.expire_date = (\n" +
+            "    SELECT MAX(expire_date)\n" +
+            "    FROM membership\n" +
+            "    WHERE user_id = :userId\n" +
+            ") AND m.active = 1", nativeQuery = true)
     Users findUserWithMembership(@Param("userId") Long userId);
 
 
