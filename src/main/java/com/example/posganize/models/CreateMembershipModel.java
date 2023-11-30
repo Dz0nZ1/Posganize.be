@@ -15,6 +15,4 @@ public class CreateMembershipModel {
     private LocalDateTime expireDate;
     private Long userId;
     private Set<TrainingModel> trainings;
-    private Double price;
-    private Boolean active;
 }
