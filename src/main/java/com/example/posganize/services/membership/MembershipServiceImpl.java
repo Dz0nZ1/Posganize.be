@@ -9,6 +9,7 @@ import com.example.posganize.mappers.TrainingMapper;
 import com.example.posganize.models.CreateMembershipModel;
 import com.example.posganize.models.MembershipModel;
 import com.example.posganize.models.MembershipPageableModel;
+import com.example.posganize.models.TrainingModel;
 import com.example.posganize.repository.MembershipRepository;
 import com.example.posganize.repository.UsersRepository;
 import org.springframework.data.domain.Page;
@@ -73,6 +74,12 @@ public class MembershipServiceImpl implements MembershipService {
         var entity = MembershipMapper.mapCreateMembershipModelToMembership(membershipModel);
         entity.setUser(user);
         entity.setTrainings(TrainingMapper.mapTrainingModelSetToTrainingSet(membershipModel.getTrainings()));
+        double price = 0;
+        for(TrainingModel training : membershipModel.getTrainings()){
+            price += training.getPrice();
+        }
+        entity.setPrice(price);
+        entity.setActive(true);
         membershipRepository.save(entity);
         return MembershipMapper.mapMembershipToMembershipModel(entity);
     }
