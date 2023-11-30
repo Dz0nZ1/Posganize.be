@@ -49,8 +49,6 @@ public class MembershipMapper {
 //                .trainings(membership.getTrainings())
                 .startDate(membership.getStartDate())
                 .expireDate(membership.getExpireDate())
-                .price(membership.getPrice())
-                .active(membership.getActive())
                 .build();
     }
 
