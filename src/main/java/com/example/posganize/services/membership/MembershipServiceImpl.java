@@ -1,14 +1,20 @@
 package com.example.posganize.services.membership;
 
 
+import com.example.posganize.entities.Membership;
 import com.example.posganize.exceptions.MembershipNotFoundException;
 import com.example.posganize.exceptions.UserNotFoundException;
 import com.example.posganize.mappers.MembershipMapper;
 import com.example.posganize.mappers.TrainingMapper;
 import com.example.posganize.models.CreateMembershipModel;
 import com.example.posganize.models.MembershipModel;
+import com.example.posganize.models.MembershipPageableModel;
 import com.example.posganize.repository.MembershipRepository;
 import com.example.posganize.repository.UsersRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -42,8 +48,22 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public List<MembershipModel> getAllMembershipByUserId(Long userId) {
-        return MembershipMapper.mapMembershipListToMembershipModelList(membershipRepository.findAllMembershipByUserId(userId));
+    public MembershipPageableModel getAllMembershipsByUserId(Long userId, int pageNumber, int pageSize, boolean ascending) {
+        Sort.Direction direction = ascending ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction,"expire_date"));
+        Page<Membership> pagedMemberships = membershipRepository.findAllMembershipByUserId(userId, pageable);
+
+        return MembershipPageableModel.builder()
+                .memberships(MembershipMapper.mapMembershipPageableToMembershipModel(pagedMemberships))
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .numberOfMemberships(pagedMemberships.getTotalElements())
+                .totalPages(pagedMemberships.getTotalPages())
+                .isLast(pagedMemberships.isLast())
+                .isFirst(pagedMemberships.isFirst())
+                .hasPrevious(pagedMemberships.hasPrevious())
+                .hasNext(pagedMemberships.hasNext())
+                .build();
     }
 
 

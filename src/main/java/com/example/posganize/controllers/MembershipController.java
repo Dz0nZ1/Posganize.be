@@ -2,6 +2,7 @@ package com.example.posganize.controllers;
 
 import com.example.posganize.models.CreateMembershipModel;
 import com.example.posganize.models.MembershipModel;
+import com.example.posganize.models.MembershipPageableModel;
 import com.example.posganize.services.membership.MembershipService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.posganize.constants.PageableConstants.*;
 
 @RestController
 @RequestMapping("/api/v1/membership")
@@ -36,8 +39,14 @@ public class MembershipController {
 
     @GetMapping("/user/{id}")
 //    @PreAuthorize("hasAuthority('admin:read')")
-    public ResponseEntity<List<MembershipModel>> getMembershipByUserId(@PathVariable("id") Long userId){
-        return new ResponseEntity<>(membershipService.getAllMembershipByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<MembershipPageableModel> getMembershipByUserId(
+            @RequestParam(value = "pageNumber", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false ) int pageSize,
+            @RequestParam(value = "sortOrder",defaultValue = DEFAULT_SORT, required = false) String sortOrder,
+            @PathVariable("id") Long userId
+    ){
+        boolean ascending = sortOrder.equalsIgnoreCase(DEFAULT_SORT);
+        return new ResponseEntity<>(membershipService.getAllMembershipsByUserId(userId, pageNumber, pageSize, ascending), HttpStatus.OK);
     }
 
     @PostMapping("/create")

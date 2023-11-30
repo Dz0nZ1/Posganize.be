@@ -3,6 +3,7 @@ import com.example.posganize.entities.Membership;
 import com.example.posganize.models.CreateMembershipModel;
 import com.example.posganize.models.MembershipModel;
 import com.example.posganize.models.UserMembershipModel;
+import org.springframework.data.domain.Page;
 
 
 import java.util.ArrayList;
@@ -61,6 +62,15 @@ public class MembershipMapper {
         }
         return modelList;
 
+    }
+
+
+    public static List<MembershipModel> mapMembershipPageableToMembershipModel (Page<Membership> memberships) {
+        List<MembershipModel> modelList = new ArrayList<>();
+        for (Membership entity : memberships) {
+            modelList.add(mapMembershipToMembershipModel(entity));
+        }
+        return modelList;
     }
 
 }
