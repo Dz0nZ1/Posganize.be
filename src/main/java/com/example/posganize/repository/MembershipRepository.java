@@ -9,6 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface MembershipRepository extends JpaRepository<Membership,Long> {
     Membership findByUser(Users user);
@@ -17,4 +21,37 @@ public interface MembershipRepository extends JpaRepository<Membership,Long> {
             "FROM membership\n" +
             "WHERE user_id = :userId\n", nativeQuery = true)
     Page<Membership> findAllMembershipByUserId(@Param("userId") Long userId, Pageable pageable);
+
+
+    @Query(value = "SELECT MONTHNAME(start_date) AS month, "
+            + "SUM(price) AS price, COUNT(membership_id) AS members "
+            + "FROM membership "
+            + "WHERE start_date BETWEEN :fromDate AND :toDate "
+            + "GROUP BY YEAR(start_date), MONTH(start_date)", nativeQuery = true)
+    List<Map<String, Object>> getRevenueAndMembersByMonth(
+            @Param("fromDate") LocalDate fromDate,
+            @Param("toDate") LocalDate toDate);
+
+    @Query(value = "SELECT SUM(price) AS totalRevenue, COUNT(membership_id) AS totalMembers "
+            + "FROM membership "
+            + "WHERE MONTH(start_date) IN (SELECT MONTH(start_date) FROM membership "
+            + "WHERE start_date BETWEEN :fromDate AND :toDate) "
+            + "AND YEAR(start_date) IN (SELECT YEAR(start_date) FROM membership "
+            + "WHERE start_date BETWEEN :fromDate AND :toDate)", nativeQuery = true)
+    Map<String, Object> getTotalRevenueAndMembers(
+            @Param("fromDate") LocalDate fromDate,
+            @Param("toDate") LocalDate toDate);
+
+
+
+
+
+
+
+    @Query(value = "SELECT COUNT(membership_id) FROM membership", nativeQuery = true)
+    Long countMembers();
+
+    @Query(value = "SELECT SUM(price) FROM membership", nativeQuery = true)
+    Double calculateTotalRevenue();
+
 }
