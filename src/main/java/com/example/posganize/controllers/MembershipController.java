@@ -4,10 +4,12 @@ import com.example.posganize.models.CreateMembershipModel;
 import com.example.posganize.models.MembershipModel;
 import com.example.posganize.models.MembershipPageableModel;
 import com.example.posganize.services.membership.MembershipService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,5 +77,11 @@ public class MembershipController {
         return new ResponseEntity<>(membershipService.isActiveMembershipByUserId(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/revenue-and-members")
+    public ResponseEntity<Map<String, Object>> getRevenueAndMembers(
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate) {
+        return new ResponseEntity<>(membershipService.getRevenueAndMembers(fromDate, toDate), HttpStatus.OK);
+    }
 
 }

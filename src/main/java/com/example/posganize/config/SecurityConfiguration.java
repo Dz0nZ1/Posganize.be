@@ -53,6 +53,7 @@ public class SecurityConfiguration {
             "/api/v1/membership/update/**",
             "/api/v1/membership/delete/**",
             "/api/v1/membership/active/**",
+            "/api/v1/membership/revenue-and-members",
 
             "/api/v1/schedule/all",
             "/api/v1/schedule/create",
@@ -66,6 +67,8 @@ public class SecurityConfiguration {
             "/api/v1/training/create",
             "/api/v1/training/delete/**",
             "/api/v1/training/update/**",
+
+
     };
 
     @Bean

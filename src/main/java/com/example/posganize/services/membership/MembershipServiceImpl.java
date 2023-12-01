@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,24 @@ public class MembershipServiceImpl implements MembershipService {
                 .hasPrevious(pagedMemberships.hasPrevious())
                 .hasNext(pagedMemberships.hasNext())
                 .build();
+    }
+
+    @Override
+    public Map<String, Object> getRevenueAndMembers(LocalDate fromDate, LocalDate toDate) {
+        Map<String, Object> response = new HashMap<>();
+        if (fromDate != null && toDate != null) {
+            List<Map<String, Object>> result1 = membershipRepository.getRevenueAndMembersByMonth(fromDate, toDate);
+            Map<String, Object> result2 = membershipRepository.getTotalRevenueAndMembers(fromDate, toDate);
+            response.put("revenue_and_members", result1);
+            response.put("RevenueAndMembersByMonth", result2);
+        } else {
+            Long totalMembers = membershipRepository.countMembers();
+            Double totalRevenue = membershipRepository.calculateTotalRevenue();
+            response.put("total_members", totalMembers);
+            response.put("total_revenue", totalRevenue);
+        }
+
+        return response;
     }
 
 
