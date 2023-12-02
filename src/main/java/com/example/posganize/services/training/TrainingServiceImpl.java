@@ -11,6 +11,7 @@ import com.example.posganize.repository.TrainingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -79,5 +80,10 @@ public class TrainingServiceImpl implements TrainingService{
     public void deleteTraining(Long trainingId) {
         trainingRepository.deleteById(trainingId);
 
+    }
+
+    @Override
+    public List<Map<String, Long>> getUserCountPerTraining() {
+        return trainingRepository.countUsersByTraining();
     }
 }
