@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +24,11 @@ public class TrainingController {
 //    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<Set<TrainingModel>> getAllClubNews(){
         return new ResponseEntity<>(trainingService.getAllTraining(), HttpStatus.OK);
+    }
+
+    @GetMapping("/users-per-training")
+    public ResponseEntity<List<Map<String, Long>>> getUsersCountPerTraining() {
+        return new ResponseEntity<>(trainingService.getUserCountPerTraining(), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
