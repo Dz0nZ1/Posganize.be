@@ -24,7 +24,7 @@ public interface MembershipRepository extends JpaRepository<Membership,Long> {
 
 
     @Query(value = "SELECT MONTHNAME(start_date) AS month, "
-            + "SUM(price) AS price, COUNT(membership_id) AS members "
+            + "SUM(price) AS price, COUNT(membership_id) AS members, YEAR(start_date) As year "
             + "FROM membership "
             + "WHERE start_date BETWEEN :fromDate AND :toDate "
             + "GROUP BY YEAR(start_date), MONTH(start_date)", nativeQuery = true)
@@ -41,9 +41,6 @@ public interface MembershipRepository extends JpaRepository<Membership,Long> {
     Map<String, Object> getTotalRevenueAndMembers(
             @Param("fromDate") LocalDate fromDate,
             @Param("toDate") LocalDate toDate);
-
-
-
 
 
 
