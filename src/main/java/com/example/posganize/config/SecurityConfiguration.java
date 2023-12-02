@@ -67,6 +67,9 @@ public class SecurityConfiguration {
             "/api/v1/training/create",
             "/api/v1/training/delete/**",
             "/api/v1/training/update/**",
+            "/api/v1/training/users-per-training",
+
+
 
 
     };
