@@ -10,6 +10,7 @@ import com.example.posganize.repository.ScheduleRepository;
 import com.example.posganize.repository.TrainingRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -83,7 +84,7 @@ public class TrainingServiceImpl implements TrainingService{
     }
 
     @Override
-    public List<Map<String, Long>> getUserCountPerTraining() {
-        return trainingRepository.countUsersByTraining();
+    public List<Map<String, Long>> getUserCountPerTraining(LocalDate fromDate, LocalDate toDate) {
+        return trainingRepository.countUsersByTraining(fromDate, toDate);
     }
 }
