@@ -2,10 +2,12 @@ package com.example.posganize.controllers;
 
 import com.example.posganize.models.TrainingModel;
 import com.example.posganize.services.training.TrainingService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +29,10 @@ public class TrainingController {
     }
 
     @GetMapping("/users-per-training")
-    public ResponseEntity<List<Map<String, Long>>> getUsersCountPerTraining() {
-        return new ResponseEntity<>(trainingService.getUserCountPerTraining(), HttpStatus.OK);
+    public ResponseEntity<List<Map<String, Long>>> getUsersCountPerTraining(
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate) {
+        return new ResponseEntity<>(trainingService.getUserCountPerTraining(fromDate, toDate), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
