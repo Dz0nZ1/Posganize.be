@@ -11,6 +11,7 @@ import com.example.posganize.models.MembershipModel;
 import com.example.posganize.models.MembershipPageableModel;
 import com.example.posganize.models.TrainingModel;
 import com.example.posganize.repository.MembershipRepository;
+import com.example.posganize.repository.TrainingRepository;
 import com.example.posganize.repository.UsersRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,11 +33,14 @@ public class MembershipServiceImpl implements MembershipService {
 
     private final UsersRepository usersRepository;
 
+    private final TrainingRepository trainingRepository;
 
 
-    public MembershipServiceImpl(MembershipRepository membershipRepository, UsersRepository usersRepository) {
+
+    public MembershipServiceImpl(MembershipRepository membershipRepository, UsersRepository usersRepository, TrainingRepository trainingRepository) {
         this.membershipRepository = membershipRepository;
         this.usersRepository = usersRepository;
+        this.trainingRepository = trainingRepository;
     }
 
     @Override
@@ -74,8 +78,12 @@ public class MembershipServiceImpl implements MembershipService {
         if (fromDate != null && toDate != null) {
             List<Map<String, Object>> result1 = membershipRepository.getRevenueAndMembersByMonth(fromDate, toDate);
             Map<String, Object> result2 = membershipRepository.getTotalRevenueAndMembers(fromDate, toDate);
+            Long result3 = trainingRepository.countTrainingsBetweenDates(fromDate, toDate);
+            String result4 = trainingRepository.findTrainingNameWithMaxRevenueBetweenDates(fromDate, toDate);
             response.put("revenue_and_members", result1);
             response.put("RevenueAndMembersByMonth", result2);
+            response.put("NumberOfActiveTrainings", result3);
+            response.put("MostPopularTraining", result4);
         } else {
             Long totalMembers = membershipRepository.countMembers();
             Double totalRevenue = membershipRepository.calculateTotalRevenue();
