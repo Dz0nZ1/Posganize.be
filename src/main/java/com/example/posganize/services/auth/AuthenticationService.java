@@ -73,6 +73,10 @@ public class AuthenticationService {
                 .builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .firstName(user.getFirstName())
+                .lastname(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole())
                 .build();
     }
 

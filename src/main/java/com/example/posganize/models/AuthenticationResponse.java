@@ -1,5 +1,6 @@
 package com.example.posganize.models;
 
+import com.example.posganize.enums.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,4 +17,12 @@ public class AuthenticationResponse {
     private String accessToken;
     @JsonProperty("refresh_token")
     private String refreshToken;
+    @JsonProperty("firstName")
+    private String firstName;
+    @JsonProperty("lastName")
+    private String lastname;
+    @JsonProperty("email")
+    private String email;
+    @JsonProperty("role")
+    private RoleEnum role;
 }
