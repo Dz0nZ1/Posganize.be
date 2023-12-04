@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -145,7 +147,16 @@ public class AuthenticationService {
                return response;
            }
        }
+       String concatenatedRoleNames = "";
        response.put("isAuthenticated", true);
+       assert authentication != null;
+       List<String> roleNames = authentication.getAuthorities().stream()
+               .map(GrantedAuthority::getAuthority)
+               .filter(authority -> authority.startsWith("ROLE_"))
+               .toList();
+       concatenatedRoleNames = String.join(",", roleNames);
+       response.put(concatenatedRoleNames, true);
+
       return response;
    }
 
