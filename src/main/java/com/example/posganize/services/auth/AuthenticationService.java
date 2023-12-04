@@ -138,8 +138,8 @@ public class AuthenticationService {
         }
     }
 
-   public Map<String, Boolean> isAuthenticated() {
-       Map<String, Boolean> response = new HashMap<>();
+   public Map<String, Object > isAuthenticated() {
+       Map<String, Object> response = new HashMap<>();
        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
        if (authentication != null && authentication.isAuthenticated()) {
            if(authentication.getName().equals("anonymousUser")) {
@@ -155,7 +155,7 @@ public class AuthenticationService {
                .filter(authority -> authority.startsWith("ROLE_"))
                .toList();
        concatenatedRoleNames = String.join(",", roleNames);
-       response.put(concatenatedRoleNames, true);
+       response.put("Role", concatenatedRoleNames);
 
       return response;
    }

@@ -39,7 +39,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/check-auth")
-    public ResponseEntity<Map<String, Boolean>> checkAuth() {
+    public ResponseEntity<Map<String, Object>> checkAuth() {
         return new ResponseEntity<>(authenticationService.isAuthenticated(), HttpStatus.OK);
     }
 
