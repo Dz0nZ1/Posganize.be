@@ -6,4 +6,8 @@ public class ConfigurationConstants {
     public static final long JWT_EXPIRATION = 86400000;
     public static final long REFRESH_EXPIRATION = 604800000;
 
+    public static final String JWT_EXPIRED = "JWT token is expired";
+
+    public static final String JWT_BAD_FORMAT = "JWT format is invalid";
+
 }
