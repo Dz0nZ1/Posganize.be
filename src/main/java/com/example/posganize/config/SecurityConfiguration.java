@@ -67,6 +67,7 @@ public class SecurityConfiguration {
             "/api/v1/training/delete/**",
             "/api/v1/training/update/**",
             "/api/v1/training/users-per-training",
+            "/api/v1/auth/check-auth"
 
 
 
@@ -87,8 +88,8 @@ public class SecurityConfiguration {
                                        .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                                        .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
 
-                                       .requestMatchers( "/api/v1/auth/check-auth").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
-                                       .requestMatchers(GET,  "/api/v1/auth/check-auth").hasAuthority(USER_READ.name())
+//                                       .requestMatchers( "/api/v1/auth/check-auth").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
+//                                       .requestMatchers(GET,  "/api/v1/auth/check-auth").hasAuthority(USER_READ.name())
 
                                        //Manager
                                        .requestMatchers(GET, "/api/v1/management/get").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
