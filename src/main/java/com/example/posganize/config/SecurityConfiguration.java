@@ -19,9 +19,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Collections;
 
-import static com.example.posganize.enums.RoleEnum.ADMIN;
-import static com.example.posganize.enums.RoleEnum.MANAGER;
 import static com.example.posganize.enums.PermissionEnum.*;
+import static com.example.posganize.enums.RoleEnum.*;
 import static org.springframework.http.HttpMethod.*;
 
 @Configuration
@@ -87,6 +86,9 @@ public class SecurityConfiguration {
                                        //Roles
                                        .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                                        .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
+
+                                       .requestMatchers( "/api/v1/auth/check-auth").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
+                                       .requestMatchers(GET,  "/api/v1/auth/check-auth").hasAuthority(USER_READ.name())
 
                                        //Manager
                                        .requestMatchers(GET, "/api/v1/management/get").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
