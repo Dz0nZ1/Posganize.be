@@ -1,5 +1,6 @@
 package com.example.posganize.config;
 
+import com.example.posganize.constants.ConfigurationConstants;
 import com.example.posganize.repository.TokenRepository;
 import com.example.posganize.services.auth.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -64,13 +65,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }catch (ExpiredJwtException e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getWriter().write("JWT token is expired");
+            response.getWriter().write(ConfigurationConstants.JWT_EXPIRED);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             return;
         }
         catch (MalformedJwtException e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.getWriter().write("JWT format is invalid");
+            response.getWriter().write(ConfigurationConstants.JWT_BAD_FORMAT);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             return;
 
