@@ -18,9 +18,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +141,16 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public void deleteMembership(Long membershipId) {
         membershipRepository.deleteById(membershipId);
+    }
+
+    @Transactional
+    @Override
+    public void checkAndUpdateMembershipStatus() {
+        List<Membership> expiredMemberships = membershipRepository.findByExpireDateBeforeAndActiveTrue(LocalDateTime.now());
+        for (Membership membership : expiredMemberships) {
+            membership.setActive(false);
+            membershipRepository.save(membership);
+        }
     }
 
     @Override

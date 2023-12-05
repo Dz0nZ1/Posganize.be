@@ -23,6 +23,7 @@ public interface MembershipService {
     MembershipModel updateMembership (MembershipModel membershipModel, Long membershipId);
 
     void deleteMembership(Long membershipId);
+    void checkAndUpdateMembershipStatus();
 
     Map<String, Boolean> isActiveMembershipByUserId(Long userId);
 

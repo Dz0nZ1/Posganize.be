@@ -10,12 +10,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 public interface MembershipRepository extends JpaRepository<Membership,Long> {
     Membership findByUser(Users user);
+
+    List<Membership> findByExpireDateBeforeAndActiveTrue(LocalDateTime localDate);
+
 
     @Query(value = "SELECT *\n" +
             "FROM membership\n" +
