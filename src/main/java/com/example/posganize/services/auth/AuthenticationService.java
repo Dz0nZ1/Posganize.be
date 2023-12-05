@@ -4,6 +4,7 @@ import com.example.posganize.entities.Token;
 import com.example.posganize.entities.Users;
 import com.example.posganize.enums.RoleEnum;
 import com.example.posganize.enums.TokenTypeEnum;
+import com.example.posganize.exceptions.UserNotFoundException;
 import com.example.posganize.models.AuthenticationRequest;
 import com.example.posganize.models.AuthenticationResponse;
 import com.example.posganize.models.RegisterRequest;
@@ -155,8 +156,9 @@ public class AuthenticationService {
                .filter(authority -> authority.startsWith("ROLE_"))
                .toList();
        concatenatedRoleNames = String.join(",", roleNames);
-       response.put("Role", concatenatedRoleNames);
-
+       response.put("role", concatenatedRoleNames);
+       var user = usersRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UserNotFoundException("User not found"));
+       response.put("userId", user.getUser_id());
       return response;
    }
 
