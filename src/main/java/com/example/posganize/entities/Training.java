@@ -26,8 +26,8 @@ public class Training {
     @Column(name = "price")
     @NotNull
     private Double price;
-    @Column(name = "Image is mandatory")
-    @NotBlank(message = "Image")
+    @Column(name = "image" )
+    @NotBlank(message = "Image is mandatory")
     private String image;
     @Column(name = "description")
     @NotBlank(message = "Description is mandatory")
