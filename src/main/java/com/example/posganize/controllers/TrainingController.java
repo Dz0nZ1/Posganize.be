@@ -2,6 +2,7 @@ package com.example.posganize.controllers;
 
 import com.example.posganize.models.TrainingModel;
 import com.example.posganize.services.training.TrainingService;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,13 +44,13 @@ public class TrainingController {
 
     @PostMapping("/create")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<TrainingModel> createTraining(@RequestBody TrainingModel training){
+    public ResponseEntity<TrainingModel> createTraining(@Valid @RequestBody TrainingModel training){
         return new ResponseEntity<>(trainingService.createTraining(training), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<TrainingModel> updateTraining(@PathVariable("id") Long trainingId, @RequestBody TrainingModel training){
+    public ResponseEntity<TrainingModel> updateTraining(@PathVariable("id") Long trainingId, @Valid @RequestBody TrainingModel training){
         return new ResponseEntity<>(trainingService.updateTraining(training, trainingId), HttpStatus.OK);
     }
 

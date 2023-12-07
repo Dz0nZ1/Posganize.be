@@ -6,6 +6,7 @@ import com.example.posganize.models.RegisterRequest;
 import com.example.posganize.services.auth.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,13 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest request){
         return new ResponseEntity<>(authenticationService.register(request), HttpStatus.OK);
 
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request){
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody AuthenticationRequest request){
         return new ResponseEntity<>(authenticationService.login(request), HttpStatus.OK);
 
     }

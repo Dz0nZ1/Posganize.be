@@ -4,6 +4,7 @@ import com.example.posganize.models.UpdateUsersModel;
 import com.example.posganize.models.UserPageableModel;
 import com.example.posganize.models.UsersModel;
 import com.example.posganize.services.users.UsersService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class UsersController {
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<UpdateUsersModel> updateUser(@PathVariable("id") Long userId, @RequestBody UpdateUsersModel updateUsersModel){
+    public ResponseEntity<UpdateUsersModel> updateUser(@PathVariable("id") Long userId, @Valid @RequestBody UpdateUsersModel updateUsersModel){
         return new ResponseEntity<>(usersService.updateUser(updateUsersModel, userId), HttpStatus.OK);
     }
 

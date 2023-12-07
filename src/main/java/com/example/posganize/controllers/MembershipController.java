@@ -4,6 +4,7 @@ import com.example.posganize.models.CreateMembershipModel;
 import com.example.posganize.models.MembershipModel;
 import com.example.posganize.models.MembershipPageableModel;
 import com.example.posganize.services.membership.MembershipService;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,13 +54,13 @@ public class MembershipController {
 
     @PostMapping("/create")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<MembershipModel> createMembership(@RequestBody CreateMembershipModel membership){
+    public ResponseEntity<MembershipModel> createMembership(@Valid @RequestBody CreateMembershipModel membership){
         return new ResponseEntity<>(membershipService.createMembership(membership), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<MembershipModel> updateMembership(@PathVariable("id") Long membershipId, @RequestBody MembershipModel membershipModel){
+    public ResponseEntity<MembershipModel> updateMembership(@PathVariable("id") Long membershipId, @Valid @RequestBody MembershipModel membershipModel){
         return new ResponseEntity<>(membershipService.updateMembership(membershipModel, membershipId), HttpStatus.OK);
     }
 

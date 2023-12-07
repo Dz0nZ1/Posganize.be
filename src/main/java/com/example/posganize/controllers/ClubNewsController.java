@@ -2,6 +2,7 @@ package com.example.posganize.controllers;
 
 import com.example.posganize.models.ClubNewsModel;
 import com.example.posganize.services.clubNews.ClubNewsService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,13 +36,13 @@ public class ClubNewsController {
 
     @PostMapping("/create")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<ClubNewsModel> createClubNews(@RequestBody ClubNewsModel clubNews){
+    public ResponseEntity<ClubNewsModel> createClubNews(@Valid  @RequestBody ClubNewsModel clubNews){
         return new ResponseEntity<>(clubNewsService.createClubNews(clubNews), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<ClubNewsModel> updateClubNews(@PathVariable("id") Long newsId, @RequestBody ClubNewsModel clubNews){
+    public ResponseEntity<ClubNewsModel> updateClubNews(@PathVariable("id") Long newsId, @Valid @RequestBody ClubNewsModel clubNews){
         return new ResponseEntity<>(clubNewsService.updateClubNews(clubNews, newsId), HttpStatus.OK);
     }
 
