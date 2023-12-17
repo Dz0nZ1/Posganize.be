@@ -23,7 +23,7 @@ public class ClubNews {
     @NotBlank(message = "Club news name is mandatory")
     private String name;
     @Column(name = "description")
-    @NotBlank(message = "Description is mandatory")
+    @NotBlank(message = "Club news description is mandatory")
     private String description;
 
 }
