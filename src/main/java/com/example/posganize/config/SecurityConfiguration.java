@@ -67,7 +67,10 @@ public class SecurityConfiguration {
             "/api/v1/training/delete/**",
             "/api/v1/training/update/**",
             "/api/v1/training/users-per-training",
-            "/api/v1/auth/check-auth"
+            "/api/v1/auth/check-auth",
+
+            "/api/v1/stripe/card/token",
+            "/api/v1/stripe/charge",
 
 
 
