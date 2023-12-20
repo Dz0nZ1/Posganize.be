@@ -1,4 +1,4 @@
-package com.example.posganize.models;
+package com.example.posganize.models.stripe;
 
 import lombok.Builder;
 import lombok.Data;

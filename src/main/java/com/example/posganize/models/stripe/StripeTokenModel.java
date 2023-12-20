@@ -1,18 +1,16 @@
-package com.example.posganize.models;
+package com.example.posganize.models.stripe;
 
 
 import lombok.Data;
 
 @Data
-public class StripeSubscriptionModel {
+public class StripeTokenModel {
 
     private String cardNumber;
     private String expMonth;
     private String expYear;
     private String cvc;
-    private String email;
+    private String token;
     private String username;
-    private String priceId;
-    private long numberOfLicense;
     private boolean success;
 }
