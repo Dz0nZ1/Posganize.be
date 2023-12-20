@@ -2,16 +2,19 @@ package com.example.posganize.services.stripe;
 
 import com.example.posganize.constants.StripeConstants;
 import com.example.posganize.models.StripeChargeModel;
+import com.example.posganize.models.StripeSubscriptionModel;
+import com.example.posganize.models.StripeSubscriptionResponse;
 import com.example.posganize.models.StripeTokenModel;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Charge;
-import com.stripe.model.Token;
+import com.stripe.model.*;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -80,6 +83,103 @@ public class StripeService {
 
     }
 
+
+    public StripeSubscriptionResponse createSubscription(StripeSubscriptionModel subscriptionModel) {
+
+        PaymentMethod paymentMethod = createPaymentMethod(subscriptionModel);
+        Customer customer = createCustomer(paymentMethod, subscriptionModel);
+        paymentMethod = attachCustomerToPaymentMethod(customer, paymentMethod);
+        Subscription subscription = createSubscription(subscriptionModel, paymentMethod, customer);
+
+        return createResponse(subscriptionModel, paymentMethod, customer, subscription);
+
+
+    }
+
+    private StripeSubscriptionResponse createResponse(StripeSubscriptionModel subscriptionModel, PaymentMethod paymentMethod, Customer customer, Subscription subscription) {
+            return StripeSubscriptionResponse
+                    .builder()
+                    .username(subscriptionModel.getUsername())
+                    .stripePaymentMethodId(paymentMethod.getId())
+                    .stripeSubscriptionId(subscription.getId())
+                    .stripeCustomerId(customer.getId())
+                    .build();
+    }
+
+    private PaymentMethod createPaymentMethod(StripeSubscriptionModel subscriptionModel){
+        try {
+            Map<String, Object> card = new HashMap<>();
+            card.put("number", subscriptionModel.getCardNumber());
+            card.put("exp_month", Integer.parseInt(subscriptionModel.getExpMonth()));
+            card.put("exp_year", Integer.parseInt(subscriptionModel.getExpYear()));
+            card.put("cvc", subscriptionModel.getCvc());
+            Map<String, Object> params = new HashMap<>();
+            params.put("type", "card");
+            params.put("card", card);
+
+            return PaymentMethod.create(params);
+        }catch (StripeException e) {
+            log.error("StripeService (createPaymentMethod)", e);
+            throw new RuntimeException(e.getMessage());
+        }
+
+    }
+
+
+    private Customer createCustomer(PaymentMethod paymentMethod, StripeSubscriptionModel subscriptionModel){
+
+        try {
+            Map<String, Object> customerMap = new HashMap<>();
+            customerMap.put("name", subscriptionModel.getUsername());
+            customerMap.put("email", subscriptionModel.getEmail());
+            customerMap.put("payment_method", paymentMethod.getId());
+
+            return Customer.create(customerMap);
+        }catch (StripeException e) {
+            log.error("StripeService (CreateCustomer)", e);
+            throw new RuntimeException(e.getMessage());
+        }
+
+
+    }
+
+
+    private PaymentMethod attachCustomerToPaymentMethod(Customer customer, PaymentMethod paymentMethod) {
+
+    try {
+        paymentMethod = com.stripe.model.PaymentMethod.retrieve(paymentMethod.getId());
+        Map<String, Object> params = new HashMap<>();
+        params.put("customer", customer.getId());
+        paymentMethod = paymentMethod.attach(params);
+        return paymentMethod;
+    }catch (StripeException e) {
+        log.error("StripeService (attachCustomerToPaymentMethod)", e);
+        throw new RuntimeException(e.getMessage());
+    }
+
+    }
+
+
+
+    private Subscription createSubscription(StripeSubscriptionModel subscriptionModel, PaymentMethod paymentMethod, Customer customer){
+        try {
+            List<Object> items = new ArrayList<>();
+            Map<String, Object> item1 = new HashMap<>();
+            item1.put("price", subscriptionModel.getPriceId());
+            item1.put("quantity", subscriptionModel.getNumberOfLicense());
+            items.add(item1);
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("customer", customer.getId());
+            params.put("default_payment_method", paymentMethod.getId());
+            params.put("items", items);
+            return Subscription.create(params);
+
+        }catch (StripeException e) {
+            log.error("StripeService (createSubscription)", e);
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 
 
 
