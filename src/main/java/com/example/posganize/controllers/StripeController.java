@@ -1,9 +1,9 @@
 package com.example.posganize.controllers;
 
-import com.example.posganize.models.StripeChargeModel;
-import com.example.posganize.models.StripeSubscriptionModel;
-import com.example.posganize.models.StripeSubscriptionResponse;
-import com.example.posganize.models.StripeTokenModel;
+import com.example.posganize.models.stripe.StripeChargeModel;
+import com.example.posganize.models.stripe.StripeSubscriptionModel;
+import com.example.posganize.models.stripe.StripeSubscriptionResponse;
+import com.example.posganize.models.stripe.StripeTokenModel;
 import com.example.posganize.services.stripe.StripeService;
 import org.springframework.web.bind.annotation.*;
 

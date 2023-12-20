@@ -1,9 +1,14 @@
 package com.example.posganize.services.clubNews;
 import com.example.posganize.mappers.ClubNewsMapper;
-import com.example.posganize.models.ClubNewsModel;
+import com.example.posganize.models.clubNews.ClubNewsModel;
+import com.example.posganize.models.clubNews.CreateClubNewsModel;
+import com.example.posganize.models.clubNews.UpdateClubNewsModel;
 import com.example.posganize.repository.ClubNewsRepository;
+import com.example.posganize.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -11,8 +16,11 @@ public class ClubNewsServiceImpl implements ClubNewsService {
 
     private final ClubNewsRepository clubNewsRepository;
 
-    public ClubNewsServiceImpl(ClubNewsRepository clubNewsRepository) {
+    private final UsersRepository usersRepository;
+
+    public ClubNewsServiceImpl(ClubNewsRepository clubNewsRepository, UsersRepository usersRepository) {
         this.clubNewsRepository = clubNewsRepository;
+        this.usersRepository = usersRepository;
     }
 
     @Override
@@ -26,18 +34,29 @@ public class ClubNewsServiceImpl implements ClubNewsService {
     }
 
     @Override
-    public ClubNewsModel createClubNews(ClubNewsModel clubNews) {
-        var entity = ClubNewsMapper.mapClubNewsModelToClubNews(clubNews);
+    public ClubNewsModel createClubNews(CreateClubNewsModel clubNews) {
+        var entity = ClubNewsMapper.mapCreateClubNewsTOClubNews(clubNews);
+        var user = usersRepository.findByEmail(clubNews.getEmail()).orElseThrow(() -> new NullPointerException("News not found"));
+        entity.setUser(user);
+        entity.setCreatedAt(LocalDateTime.from(Instant.now()));
         clubNewsRepository.save(entity);
         return ClubNewsMapper.mapClubNewsToClubNewsModel(entity);
     }
 
     @Override
-    public ClubNewsModel updateClubNews(ClubNewsModel clubNews, Long newsId) {
-        var entity = ClubNewsMapper.mapClubNewsModelToClubNews(clubNews);
-        var newClubNews = clubNewsRepository.findById(newsId).orElseThrow(() -> new NullPointerException("News not found"));
-        clubNewsRepository.save(newClubNews);
-        return ClubNewsMapper.mapClubNewsToClubNewsModel(newClubNews);
+    public ClubNewsModel updateClubNews(UpdateClubNewsModel clubNewsModel, Long newsId) {
+        var clubNews = clubNewsRepository.findById(newsId).orElseThrow(() -> new NullPointerException("News not found"));
+        if(clubNewsModel.getTitle() != null) {
+            clubNews.setTitle(clubNewsModel.getTitle());
+        }
+        if(clubNewsModel.getDescription() != null) {
+            clubNews.setDescription(clubNewsModel.getDescription());
+        }
+        if(clubNewsModel.getImage() != null) {
+            clubNews.setImage(clubNewsModel.getImage());
+        }
+        clubNewsRepository.save(clubNews);
+        return ClubNewsMapper.mapClubNewsToClubNewsModel(clubNews);
     }
 
 

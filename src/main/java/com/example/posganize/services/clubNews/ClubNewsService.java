@@ -1,7 +1,9 @@
 package com.example.posganize.services.clubNews;
 
 
-import com.example.posganize.models.ClubNewsModel;
+import com.example.posganize.models.clubNews.ClubNewsModel;
+import com.example.posganize.models.clubNews.CreateClubNewsModel;
+import com.example.posganize.models.clubNews.UpdateClubNewsModel;
 
 import java.util.List;
 
@@ -11,9 +13,9 @@ public interface ClubNewsService {
 
     ClubNewsModel getClubNewsById(Long newsId);
 
-    ClubNewsModel createClubNews(ClubNewsModel clubNews);
+    ClubNewsModel createClubNews(CreateClubNewsModel clubNews);
 
-    ClubNewsModel updateClubNews(ClubNewsModel clubNews, Long newsId);
+    ClubNewsModel updateClubNews(UpdateClubNewsModel clubNews, Long newsId);
     void deleteClubNews(Long newsId);
 
 }

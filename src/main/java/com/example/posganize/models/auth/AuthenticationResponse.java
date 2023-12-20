@@ -1,4 +1,4 @@
-package com.example.posganize.models;
+package com.example.posganize.models.auth;
 
 import com.example.posganize.enums.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;

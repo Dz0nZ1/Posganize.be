@@ -1,8 +1,8 @@
 package com.example.posganize.controllers;
 
-import com.example.posganize.models.CreateMembershipModel;
-import com.example.posganize.models.MembershipModel;
-import com.example.posganize.models.MembershipPageableModel;
+import com.example.posganize.models.membership.CreateMembershipModel;
+import com.example.posganize.models.membership.MembershipModel;
+import com.example.posganize.models.membership.MembershipPageableModel;
 import com.example.posganize.services.membership.MembershipService;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;

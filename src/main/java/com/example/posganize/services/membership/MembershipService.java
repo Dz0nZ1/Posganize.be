@@ -1,8 +1,8 @@
 package com.example.posganize.services.membership;
 
-import com.example.posganize.models.CreateMembershipModel;
-import com.example.posganize.models.MembershipModel;
-import com.example.posganize.models.MembershipPageableModel;
+import com.example.posganize.models.membership.CreateMembershipModel;
+import com.example.posganize.models.membership.MembershipModel;
+import com.example.posganize.models.membership.MembershipPageableModel;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,10 +1,10 @@
 package com.example.posganize.services.stripe;
 
 import com.example.posganize.constants.StripeConstants;
-import com.example.posganize.models.StripeChargeModel;
-import com.example.posganize.models.StripeSubscriptionModel;
-import com.example.posganize.models.StripeSubscriptionResponse;
-import com.example.posganize.models.StripeTokenModel;
+import com.example.posganize.models.stripe.StripeChargeModel;
+import com.example.posganize.models.stripe.StripeSubscriptionModel;
+import com.example.posganize.models.stripe.StripeSubscriptionResponse;
+import com.example.posganize.models.stripe.StripeTokenModel;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.*;

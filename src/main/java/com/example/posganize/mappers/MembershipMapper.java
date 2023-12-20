@@ -1,8 +1,8 @@
 package com.example.posganize.mappers;
 import com.example.posganize.entities.Membership;
-import com.example.posganize.models.CreateMembershipModel;
-import com.example.posganize.models.MembershipModel;
-import com.example.posganize.models.UserMembershipModel;
+import com.example.posganize.models.membership.CreateMembershipModel;
+import com.example.posganize.models.membership.MembershipModel;
+import com.example.posganize.models.user.UserMembershipModel;
 import org.springframework.data.domain.Page;
 
 

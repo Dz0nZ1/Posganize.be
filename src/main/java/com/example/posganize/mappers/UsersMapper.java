@@ -2,7 +2,7 @@ package com.example.posganize.mappers;
 import com.example.posganize.entities.Membership;
 import com.example.posganize.entities.Users;
 import com.example.posganize.models.UpdateUsersModel;
-import com.example.posganize.models.UsersModel;
+import com.example.posganize.models.user.UsersModel;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;

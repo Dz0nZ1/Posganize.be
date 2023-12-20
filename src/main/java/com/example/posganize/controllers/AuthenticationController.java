@@ -1,8 +1,8 @@
 package com.example.posganize.controllers;
 
-import com.example.posganize.models.AuthenticationRequest;
-import com.example.posganize.models.AuthenticationResponse;
-import com.example.posganize.models.RegisterRequest;
+import com.example.posganize.models.auth.AuthenticationRequest;
+import com.example.posganize.models.auth.AuthenticationResponse;
+import com.example.posganize.models.auth.RegisterRequest;
 import com.example.posganize.services.auth.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
