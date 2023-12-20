@@ -82,8 +82,6 @@ public class AuthenticationService {
                 .refreshToken(refreshToken)
                 .firstName(user.getFirstName())
                 .lastname(user.getLastName())
-                .email(user.getEmail())
-                .role(user.getRole())
                 .build();
     }
 
@@ -159,6 +157,7 @@ public class AuthenticationService {
        response.put("role", concatenatedRoleNames);
        var user = usersRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UserNotFoundException("User not found"));
        response.put("userId", user.getUser_id());
+       response.put("email", user.getEmail());
       return response;
    }
 

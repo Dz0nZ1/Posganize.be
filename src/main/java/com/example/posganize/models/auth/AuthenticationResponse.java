@@ -21,8 +21,4 @@ public class AuthenticationResponse {
     private String firstName;
     @JsonProperty("lastName")
     private String lastname;
-    @JsonProperty("email")
-    private String email;
-    @JsonProperty("role")
-    private RoleEnum role;
 }
