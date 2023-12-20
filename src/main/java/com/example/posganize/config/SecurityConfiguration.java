@@ -71,6 +71,7 @@ public class SecurityConfiguration {
 
             "/api/v1/stripe/card/token",
             "/api/v1/stripe/charge",
+            "/api/v1/stripe/customer/subscription"
 
 
 
