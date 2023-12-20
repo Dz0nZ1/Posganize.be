@@ -1,6 +1,8 @@
 package com.example.posganize.controllers;
 
-import com.example.posganize.models.ClubNewsModel;
+import com.example.posganize.models.clubNews.ClubNewsModel;
+import com.example.posganize.models.clubNews.CreateClubNewsModel;
+import com.example.posganize.models.clubNews.UpdateClubNewsModel;
 import com.example.posganize.services.clubNews.ClubNewsService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -36,13 +38,13 @@ public class ClubNewsController {
 
     @PostMapping("/create")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<ClubNewsModel> createClubNews(@Valid  @RequestBody ClubNewsModel clubNews){
+    public ResponseEntity<ClubNewsModel> createClubNews(@Valid  @RequestBody CreateClubNewsModel clubNews){
         return new ResponseEntity<>(clubNewsService.createClubNews(clubNews), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<ClubNewsModel> updateClubNews(@PathVariable("id") Long newsId, @Valid @RequestBody ClubNewsModel clubNews){
+    public ResponseEntity<ClubNewsModel> updateClubNews(@PathVariable("id") Long newsId, @Valid @RequestBody UpdateClubNewsModel clubNews){
         return new ResponseEntity<>(clubNewsService.updateClubNews(clubNews, newsId), HttpStatus.OK);
     }
 
