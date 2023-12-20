@@ -1,8 +1,8 @@
 package com.example.posganize.controllers;
 
 import com.example.posganize.models.UpdateUsersModel;
-import com.example.posganize.models.UserPageableModel;
-import com.example.posganize.models.UsersModel;
+import com.example.posganize.models.user.UserPageableModel;
+import com.example.posganize.models.user.UsersModel;
 import com.example.posganize.services.users.UsersService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
