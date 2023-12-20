@@ -1,5 +1,7 @@
-package com.example.posganize.models;
+package com.example.posganize.models.membership;
 
+import com.example.posganize.models.TrainingModel;
+import com.example.posganize.models.user.UserMembershipModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
