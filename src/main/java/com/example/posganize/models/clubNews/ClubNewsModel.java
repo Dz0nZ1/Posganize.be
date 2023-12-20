@@ -1,6 +1,5 @@
 package com.example.posganize.models.clubNews;
 
-import com.example.posganize.entities.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +17,7 @@ public class ClubNewsModel {
     private String title;
     private String description;
     private String image;
-    private Users user;
+    private String author;
     private LocalDateTime createdAt;
 
 }
