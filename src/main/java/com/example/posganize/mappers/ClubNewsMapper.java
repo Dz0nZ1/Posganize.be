@@ -18,6 +18,7 @@ public  class ClubNewsMapper {
                 .description(clubNews.getDescription())
                 .image(clubNews.getImage())
                 .createdAt(clubNews.getCreatedAt())
+                .author(clubNews.getUser().getEmail())
                 .build();
     }
 
