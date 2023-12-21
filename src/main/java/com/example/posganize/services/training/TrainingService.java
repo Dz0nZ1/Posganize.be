@@ -1,6 +1,8 @@
 package com.example.posganize.services.training;
 
-import com.example.posganize.models.TrainingModel;
+import com.example.posganize.models.training.CreateTrainingModel;
+import com.example.posganize.models.training.TrainingModel;
+import com.example.posganize.models.training.UpdateTrainingModel;
 
 
 import java.time.LocalDate;
@@ -15,9 +17,9 @@ public interface TrainingService {
 
     TrainingModel getTrainingById(Long trainingId);
 
-    TrainingModel createTraining(TrainingModel training);
+    TrainingModel createTraining(CreateTrainingModel training);
 
-    TrainingModel updateTraining(TrainingModel training, Long trainingId);
+    TrainingModel updateTraining(UpdateTrainingModel training, Long trainingId);
     void deleteTraining(Long trainingId);
 
     List<Map<String, Long>> getUserCountPerTraining(LocalDate fromDate, LocalDate toDate);
