@@ -1,6 +1,6 @@
 package com.example.posganize.services.users;
 
-import com.example.posganize.models.UpdateUsersModel;
+import com.example.posganize.models.user.UpdateUsersModel;
 import com.example.posganize.models.user.UserPageableModel;
 import com.example.posganize.models.user.UsersModel;
 

@@ -1,4 +1,4 @@
-package com.example.posganize.models;
+package com.example.posganize.models.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
