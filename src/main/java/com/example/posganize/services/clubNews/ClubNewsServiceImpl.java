@@ -1,10 +1,15 @@
 package com.example.posganize.services.clubNews;
+import com.example.posganize.entities.ClubNews;
 import com.example.posganize.mappers.ClubNewsMapper;
 import com.example.posganize.models.clubNews.ClubNewsModel;
+import com.example.posganize.models.clubNews.ClubNewsPageableModel;
 import com.example.posganize.models.clubNews.CreateClubNewsModel;
 import com.example.posganize.models.clubNews.UpdateClubNewsModel;
 import com.example.posganize.repository.ClubNewsRepository;
 import com.example.posganize.repository.UsersRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,6 +30,24 @@ public class ClubNewsServiceImpl implements ClubNewsService {
     @Override
     public List<ClubNewsModel> getAllClubNews() {
         return ClubNewsMapper.mapClubNewsListToClubNewsModelList(clubNewsRepository.findAll());
+    }
+
+    @Override
+    public ClubNewsPageableModel getAllClubNewsPageable(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<ClubNews> pagedClubNews = clubNewsRepository.findAll(pageable);
+        return ClubNewsPageableModel
+                .builder()
+                .clubNews(ClubNewsMapper.mapClubNewsPageableToClubNewsModelList(pagedClubNews))
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .numberOfNews(pagedClubNews.getTotalElements())
+                .totalPages(pagedClubNews.getTotalPages())
+                .isLast(pagedClubNews.isLast())
+                .isFirst(pagedClubNews.isFirst())
+                .hasPrevious(pagedClubNews.hasPrevious())
+                .hasNext(pagedClubNews.hasNext())
+                .build();
     }
 
     @Override
