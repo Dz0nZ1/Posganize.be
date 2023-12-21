@@ -4,7 +4,7 @@ import com.example.posganize.entities.Schedule;
 import com.example.posganize.exceptions.TrainingNotFoundException;
 import com.example.posganize.mappers.ScheduleMapper;
 import com.example.posganize.mappers.TrainingMapper;
-import com.example.posganize.models.ScheduleModel;
+import com.example.posganize.models.schedule.ScheduleModel;
 import com.example.posganize.models.training.CreateTrainingModel;
 import com.example.posganize.models.training.TrainingModel;
 import com.example.posganize.models.training.UpdateTrainingModel;

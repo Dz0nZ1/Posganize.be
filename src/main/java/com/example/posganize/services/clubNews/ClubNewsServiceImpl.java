@@ -7,7 +7,6 @@ import com.example.posganize.repository.ClubNewsRepository;
 import com.example.posganize.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class ClubNewsServiceImpl implements ClubNewsService {
         var entity = ClubNewsMapper.mapCreateClubNewsTOClubNews(clubNews);
         var user = usersRepository.findByEmail(clubNews.getEmail()).orElseThrow(() -> new NullPointerException("News not found"));
         entity.setUser(user);
-        entity.setCreatedAt(LocalDateTime.from(Instant.now()));
+        entity.setCreatedAt(LocalDateTime.now());
         clubNewsRepository.save(entity);
         return ClubNewsMapper.mapClubNewsToClubNewsModel(entity);
     }

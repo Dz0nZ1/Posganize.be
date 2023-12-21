@@ -1,6 +1,6 @@
 package com.example.posganize.models.training;
 
-import com.example.posganize.models.ScheduleModel;
+import com.example.posganize.models.schedule.ScheduleModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -5,7 +5,7 @@ import com.example.posganize.entities.Users;
 import com.example.posganize.exceptions.UserNotFoundException;
 import com.example.posganize.exceptions.UserStatusException;
 import com.example.posganize.mappers.UsersMapper;
-import com.example.posganize.models.UpdateUsersModel;
+import com.example.posganize.models.user.UpdateUsersModel;
 import com.example.posganize.models.user.UserPageableModel;
 import com.example.posganize.models.user.UsersModel;
 import com.example.posganize.repository.UsersRepository;
