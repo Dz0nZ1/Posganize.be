@@ -4,6 +4,7 @@ import com.example.posganize.entities.ClubNews;
 import com.example.posganize.models.clubNews.ClubNewsModel;
 import com.example.posganize.models.clubNews.CreateClubNewsModel;
 import com.example.posganize.models.clubNews.UpdateClubNewsModel;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,16 @@ public  class ClubNewsMapper {
                 .image(clubNewsModel.getImage())
                 .build();
     }
+
+
+    public static List<ClubNewsModel> mapClubNewsPageableToClubNewsModelList(Page<ClubNews> clubNewsPage){
+        List<ClubNewsModel> modelList = new ArrayList<>();
+        for(ClubNews entity : clubNewsPage) {
+            modelList.add(mapClubNewsToClubNewsModel(entity));
+        }
+        return modelList;
+    }
+
 
 
     public static List<ClubNewsModel> mapClubNewsListToClubNewsModelList(List<ClubNews> clubNews) {
