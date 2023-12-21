@@ -1,6 +1,8 @@
 package com.example.posganize.services.schedule;
 
-import com.example.posganize.models.ScheduleModel;
+import com.example.posganize.models.schedule.CreateScheduleModel;
+import com.example.posganize.models.schedule.ScheduleModel;
+import com.example.posganize.models.schedule.UpdateScheduleModel;
 
 import java.util.List;
 
@@ -10,11 +12,11 @@ public interface ScheduleService {
 
     ScheduleModel getScheduleById(Long scheduleId);
 
-    ScheduleModel createSchedule(ScheduleModel schedule);
+    ScheduleModel createSchedule(CreateScheduleModel schedule);
 
-    ScheduleModel createScheduleByTrainingId(ScheduleModel scheduleModel, Long trainingId);
+    ScheduleModel createScheduleByTrainingId(CreateScheduleModel scheduleModel, Long trainingId);
 
-    ScheduleModel updateSchedule(ScheduleModel schedule , Long scheduleID);
+    ScheduleModel updateSchedule(UpdateScheduleModel schedule , Long scheduleID);
 
     void deleteSchedule(Long scheduleId);
 }
