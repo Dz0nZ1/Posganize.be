@@ -1,5 +1,5 @@
 package com.example.posganize.models.membership;
-import com.example.posganize.models.TrainingModel;
+import com.example.posganize.models.training.TrainingModel;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

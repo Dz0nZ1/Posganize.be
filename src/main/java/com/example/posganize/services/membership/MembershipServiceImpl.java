@@ -9,7 +9,7 @@ import com.example.posganize.mappers.TrainingMapper;
 import com.example.posganize.models.membership.CreateMembershipModel;
 import com.example.posganize.models.membership.MembershipModel;
 import com.example.posganize.models.membership.MembershipPageableModel;
-import com.example.posganize.models.TrainingModel;
+import com.example.posganize.models.training.TrainingModel;
 import com.example.posganize.repository.MembershipRepository;
 import com.example.posganize.repository.TrainingRepository;
 import com.example.posganize.repository.UsersRepository;
