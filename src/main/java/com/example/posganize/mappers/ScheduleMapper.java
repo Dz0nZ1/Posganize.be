@@ -2,7 +2,9 @@ package com.example.posganize.mappers;
 
 
 import com.example.posganize.entities.Schedule;
-import com.example.posganize.models.ScheduleModel;
+import com.example.posganize.models.schedule.CreateScheduleModel;
+import com.example.posganize.models.schedule.ScheduleModel;
+import com.example.posganize.models.schedule.UpdateScheduleModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,25 @@ public class ScheduleMapper {
 
     public static Schedule mapScheduleModelToSchedule(ScheduleModel schedule){
         return Schedule.builder().schedule_id(schedule.getId()).scheduleName(schedule.getScheduleName()).scheduleTime(schedule.getScheduleTime()).scheduleDay(schedule.getScheduleDay()).build();
+    }
+
+
+    public static Schedule mapCreateScheduleModelToSchedule(CreateScheduleModel createScheduleModel) {
+        return  Schedule
+                .builder()
+                .scheduleName(createScheduleModel.getScheduleName())
+                .scheduleDay(createScheduleModel.getScheduleDay())
+                .scheduleTime(createScheduleModel.getScheduleTime())
+                .build();
+    }
+
+    public static Schedule mapUpdateScheduleModelToSchedule(UpdateScheduleModel createScheduleModel) {
+        return  Schedule
+                .builder()
+                .scheduleName(createScheduleModel.getScheduleName())
+                .scheduleDay(createScheduleModel.getScheduleDay())
+                .scheduleTime(createScheduleModel.getScheduleTime())
+                .build();
     }
 
     public static List<ScheduleModel> mapScheduleListToScheduleModelList(List<Schedule> schedules){

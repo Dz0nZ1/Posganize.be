@@ -1,7 +1,9 @@
 package com.example.posganize.controllers;
 
 
-import com.example.posganize.models.ScheduleModel;
+import com.example.posganize.models.schedule.CreateScheduleModel;
+import com.example.posganize.models.schedule.ScheduleModel;
+import com.example.posganize.models.schedule.UpdateScheduleModel;
 import com.example.posganize.services.schedule.ScheduleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -38,19 +40,19 @@ public class ScheduleController {
 
     @PostMapping("/create")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<ScheduleModel> createSchedule(@Valid @RequestBody ScheduleModel schedule){
+    public ResponseEntity<ScheduleModel> createSchedule(@Valid @RequestBody CreateScheduleModel schedule){
         return new ResponseEntity<>(scheduleService.createSchedule(schedule), HttpStatus.OK);
     }
 
     @PostMapping("/create/{id}")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<ScheduleModel> createSchedule(@PathVariable("id") Long trainingId, @Valid @RequestBody ScheduleModel schedule){
+    public ResponseEntity<ScheduleModel> createSchedule(@PathVariable("id") Long trainingId, @Valid @RequestBody CreateScheduleModel schedule){
         return new ResponseEntity<>(scheduleService.createScheduleByTrainingId(schedule, trainingId), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<ScheduleModel> updateSchedule(@PathVariable("id") Long scheduleId, @Valid @RequestBody ScheduleModel schedule){
+    public ResponseEntity<ScheduleModel> updateSchedule(@PathVariable("id") Long scheduleId, @Valid @RequestBody UpdateScheduleModel schedule){
         return new ResponseEntity<>(scheduleService.updateSchedule(schedule, scheduleId), HttpStatus.OK);
     }
 

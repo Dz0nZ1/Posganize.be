@@ -1,6 +1,6 @@
 package com.example.posganize.models.training;
 
-import com.example.posganize.models.ScheduleModel;
+import com.example.posganize.models.schedule.ScheduleModel;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
