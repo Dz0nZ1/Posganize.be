@@ -1,6 +1,7 @@
 package com.example.posganize.controllers;
 
 import com.example.posganize.models.clubNews.ClubNewsModel;
+import com.example.posganize.models.clubNews.ClubNewsPageableModel;
 import com.example.posganize.models.clubNews.CreateClubNewsModel;
 import com.example.posganize.models.clubNews.UpdateClubNewsModel;
 import com.example.posganize.services.clubNews.ClubNewsService;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.posganize.constants.PageableConstants.*;
 
 @RestController
 //@PreAuthorize("hasRole('Admin')")
@@ -28,6 +31,14 @@ public class ClubNewsController {
 //    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<List<ClubNewsModel>> getAllClubNews(){
         return new ResponseEntity<>(clubNewsService.getAllClubNews(), HttpStatus.OK);
+    }
+
+    @GetMapping("/pageable")
+    public ResponseEntity<ClubNewsPageableModel> getAllClubNewsPageable(
+            @RequestParam(value = "pageNumber", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false ) int pageSize
+    ) {
+    return new ResponseEntity<>(clubNewsService.getAllClubNewsPageable(pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
