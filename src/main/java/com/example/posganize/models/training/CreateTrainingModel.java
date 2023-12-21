@@ -1,5 +1,6 @@
-package com.example.posganize.models;
+package com.example.posganize.models.training;
 
+import com.example.posganize.models.ScheduleModel;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,16 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TrainingModel {
+public class CreateTrainingModel {
 
-    private Long id;
     @NotBlank(message = "Training name is mandatory")
     private String name;
     @NotBlank(message = "Description name is mandatory")
     private String description;
     @NotBlank(message = "Image name is mandatory")
     private String image;
-    @NotNull
+    @NotNull(message = "Price is mandatory")
     private Double price;
     private List<ScheduleModel> schedule;
 }

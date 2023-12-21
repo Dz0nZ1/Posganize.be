@@ -5,7 +5,9 @@ import com.example.posganize.exceptions.TrainingNotFoundException;
 import com.example.posganize.mappers.ScheduleMapper;
 import com.example.posganize.mappers.TrainingMapper;
 import com.example.posganize.models.ScheduleModel;
-import com.example.posganize.models.TrainingModel;
+import com.example.posganize.models.training.CreateTrainingModel;
+import com.example.posganize.models.training.TrainingModel;
+import com.example.posganize.models.training.UpdateTrainingModel;
 import com.example.posganize.repository.ScheduleRepository;
 import com.example.posganize.repository.TrainingRepository;
 import org.springframework.stereotype.Service;
@@ -39,8 +41,8 @@ public class TrainingServiceImpl implements TrainingService{
     }
 
     @Override
-    public TrainingModel createTraining(TrainingModel training) {
-        var trainingEntity = TrainingMapper.mapTrainingModelToTraining(training);
+    public TrainingModel createTraining(CreateTrainingModel training) {
+        var trainingEntity = TrainingMapper.mapCreateTrainingModelToTraining(training);
         trainingRepository.save(trainingEntity);
         List<ScheduleModel> scheduleModels = training.getSchedule();
         List<Schedule> schedules = scheduleModels.stream()
@@ -57,8 +59,8 @@ public class TrainingServiceImpl implements TrainingService{
     }
 
     @Override
-    public TrainingModel updateTraining(TrainingModel training, Long trainingId) {
-        var entity = TrainingMapper.mapTrainingModelToTraining(training);
+    public TrainingModel updateTraining(UpdateTrainingModel training, Long trainingId) {
+        var entity = TrainingMapper.mapUpdateTrainingModelToTraining(training);
         var newTraining = trainingRepository.findById(trainingId).orElseThrow(() -> new TrainingNotFoundException("Training not found"));
 
         if(entity.getDescription() != null) {

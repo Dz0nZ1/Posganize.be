@@ -1,6 +1,8 @@
 package com.example.posganize.controllers;
 
-import com.example.posganize.models.TrainingModel;
+import com.example.posganize.models.training.CreateTrainingModel;
+import com.example.posganize.models.training.TrainingModel;
+import com.example.posganize.models.training.UpdateTrainingModel;
 import com.example.posganize.services.training.TrainingService;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,13 +46,13 @@ public class TrainingController {
 
     @PostMapping("/create")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<TrainingModel> createTraining(@Valid @RequestBody TrainingModel training){
+    public ResponseEntity<TrainingModel> createTraining(@Valid @RequestBody CreateTrainingModel training){
         return new ResponseEntity<>(trainingService.createTraining(training), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<TrainingModel> updateTraining(@PathVariable("id") Long trainingId, @Valid @RequestBody TrainingModel training){
+    public ResponseEntity<TrainingModel> updateTraining(@PathVariable("id") Long trainingId, @Valid @RequestBody UpdateTrainingModel training){
         return new ResponseEntity<>(trainingService.updateTraining(training, trainingId), HttpStatus.OK);
     }
 

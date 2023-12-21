@@ -29,13 +29,13 @@ public class Training {
     @Column(name = "image" )
     @NotBlank(message = "Image is mandatory")
     private String image;
-    @Column(name = "description")
+    @Column(name = "description", length = 100000)
     @NotBlank(message = "Description is mandatory")
     private String description;
 
     @JsonManagedReference
     @ToString.Exclude
-    @OneToMany(mappedBy = "training")
+    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
     private List<Schedule> schedules;
 
 

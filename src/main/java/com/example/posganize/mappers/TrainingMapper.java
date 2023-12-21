@@ -1,7 +1,9 @@
 package com.example.posganize.mappers;
 
 import com.example.posganize.entities.Training;
-import com.example.posganize.models.TrainingModel;
+import com.example.posganize.models.training.CreateTrainingModel;
+import com.example.posganize.models.training.TrainingModel;
+import com.example.posganize.models.training.UpdateTrainingModel;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,6 +36,28 @@ public class TrainingMapper {
         else entity.setSchedules(null);
         return entity;
     }
+
+    public static Training mapCreateTrainingModelToTraining (CreateTrainingModel createTrainingModel) {
+        return Training
+                .builder()
+                .name(createTrainingModel.getName())
+                .description(createTrainingModel.getDescription())
+                .image(createTrainingModel.getImage())
+                .schedules(ScheduleMapper.mapScheduleListModelToScheduleList(createTrainingModel.getSchedule()))
+                .price(createTrainingModel.getPrice())
+                .build();
+    }
+
+    public static Training mapUpdateTrainingModelToTraining (UpdateTrainingModel createTrainingModel) {
+        return Training
+                .builder()
+                .name(createTrainingModel.getName())
+                .description(createTrainingModel.getDescription())
+                .image(createTrainingModel.getImage())
+                .price(createTrainingModel.getPrice())
+                .build();
+    }
+
 
 
     public static Set<TrainingModel> mapTrainingSetToTrainingModelSet(Set<Training> training) {
