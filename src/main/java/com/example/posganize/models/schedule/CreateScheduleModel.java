@@ -1,5 +1,4 @@
-package com.example.posganize.models;
-
+package com.example.posganize.models.schedule;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -11,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ScheduleModel {
-    private Long id;
+public class CreateScheduleModel {
     @NotBlank(message = "Schedule name name is mandatory")
     private String scheduleName;
     @NotBlank(message = "Schedule day name is mandatory")
