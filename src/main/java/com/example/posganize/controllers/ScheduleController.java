@@ -34,7 +34,7 @@ public class ScheduleController {
 
     @GetMapping("/get/{id}")
 //    @PreAuthorize("hasAuthority('admin:read')")
-    public ResponseEntity<ScheduleModel> getClubNewsById(@PathVariable("id") Long scheduleId){
+    public ResponseEntity<ScheduleModel> getSchedule(@PathVariable("id") Long scheduleId){
         return new ResponseEntity<>(scheduleService.getScheduleById(scheduleId), HttpStatus.OK);
     }
 
@@ -46,7 +46,7 @@ public class ScheduleController {
 
     @PostMapping("/create/{id}")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<ScheduleModel> createSchedule(@PathVariable("id") Long trainingId, @Valid @RequestBody CreateScheduleModel schedule){
+    public ResponseEntity<ScheduleModel> createScheduleByTrainingId(@PathVariable("id") Long trainingId, @Valid @RequestBody CreateScheduleModel schedule){
         return new ResponseEntity<>(scheduleService.createScheduleByTrainingId(schedule, trainingId), HttpStatus.OK);
     }
 
