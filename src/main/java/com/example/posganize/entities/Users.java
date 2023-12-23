@@ -61,8 +61,8 @@ public class Users implements UserDetails {
     private Payments payments;
     @JsonManagedReference
     @ToString.Exclude
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private ClubNews clubNews;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ClubNews> clubNews;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
