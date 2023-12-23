@@ -26,7 +26,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             "    SELECT MAX(expire_date)\n" +
             "    FROM membership\n" +
             "    WHERE user_id = u.user_id\n" +
-            ") AND m.active = 1", nativeQuery = true)
+            ") AND m.active = true", nativeQuery = true)
     Page<Users> findAllUsersWithActiveMembership(Pageable pageable);
 
     @Query(value = "SELECT u.*, m.active\n" +
@@ -36,7 +36,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             "    SELECT MAX(expire_date)\n" +
             "    FROM membership\n" +
             "    WHERE user_id = u.user_id\n" +
-            ") AND m.active = 0", nativeQuery = true)
+            ") AND m.active = false", nativeQuery = true)
     Page<Users> findAllUsersWithoutActiveMembership(Pageable pageable);
 
 
@@ -47,7 +47,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             "    SELECT MAX(expire_date)\n" +
             "    FROM membership\n" +
             "    WHERE user_id = :userId\n" +
-            ") AND m.active = 1", nativeQuery = true)
+            ") AND m.active = true", nativeQuery = true)
     Users findUserWithMembership(@Param("userId") Long userId);
 
 
