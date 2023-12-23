@@ -2,7 +2,6 @@ package com.example.posganize.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -21,10 +20,10 @@ public class Membership {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long membership_id;
     @Column(name = "start_date")
-    @NotBlank(message = "Start day name is mandatory")
+    @NotNull(message = "Start day name is mandatory")
     private LocalDateTime startDate;
     @Column(name = "expire_date")
-    @NotBlank(message = "Expire day name name is mandatory")
+    @NotNull(message = "Expire day name name is mandatory")
     private LocalDateTime expireDate;
 
     @ManyToOne
