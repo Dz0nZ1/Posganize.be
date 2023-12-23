@@ -1,7 +1,6 @@
 package com.example.posganize.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -30,9 +29,8 @@ public class ClubNews {
     private String description;
     @NotBlank(message = "Club news image is mandatory")
     private String image;
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "created_by")
     private Users user;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
