@@ -1,12 +1,14 @@
 package com.example.posganize.services.schedule;
 
 import com.example.posganize.entities.Schedule;
+import com.example.posganize.entities.Training;
 import com.example.posganize.mappers.ScheduleMapper;
 import com.example.posganize.models.schedule.CreateScheduleModel;
 import com.example.posganize.models.schedule.ScheduleModel;
 import com.example.posganize.models.schedule.UpdateScheduleModel;
 import com.example.posganize.repository.ScheduleRepository;
 
+import com.example.posganize.repository.TrainingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +32,9 @@ class ScheduleServiceTest {
     @MockBean
     private ScheduleRepository scheduleRepository;
 
+    @MockBean
+    private TrainingRepository trainingRepository;
+
     @BeforeEach
     void setUp() {
         Schedule schedule1 = Schedule
@@ -48,6 +53,16 @@ class ScheduleServiceTest {
                 .scheduleTime("21:00")
                 .build();
 
+        Training training = Training
+                .builder()
+                .training_id(1L)
+                .schedules(List.of())
+                .name("Boxing")
+                .price(3000.00)
+                .image("random image")
+                .description("random description")
+                .build();
+
         //findAll
         Mockito.when(scheduleRepository.findAll()).thenReturn(List.of(schedule1 , schedule2));
 
@@ -62,6 +77,9 @@ class ScheduleServiceTest {
                     createdSchedule.setSchedule_id(1L);
                     return createdSchedule;
                 });
+
+        //getTrainingById
+        Mockito.when(trainingRepository.findById(training.getTraining_id())).thenReturn(Optional.of(training));
 
 
     }
@@ -112,11 +130,25 @@ class ScheduleServiceTest {
         assertEquals("Monday", createdSchedule.getScheduleDay());
         assertEquals("22:00", createdSchedule.getScheduleTime());
 
-
     }
 
     @Test
     void createScheduleByTrainingId() {
+        Long trainingId = 1L;
+        CreateScheduleModel schedule = CreateScheduleModel
+                .builder()
+                .scheduleName("Advanced group")
+                .scheduleDay("Monday")
+                .scheduleTime("22:00")
+                .build();
+
+        ScheduleModel createdSchedule = scheduleService.createScheduleByTrainingId(schedule, trainingId);
+        System.out.println(createdSchedule);
+
+        assertNotNull(createdSchedule.getId());
+        assertEquals("Advanced group", createdSchedule.getScheduleName());
+        assertEquals("Monday", createdSchedule.getScheduleDay());
+        assertEquals("22:00", createdSchedule.getScheduleTime());
     }
 
     @Test
