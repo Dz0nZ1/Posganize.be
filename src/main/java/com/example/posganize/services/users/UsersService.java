@@ -13,7 +13,7 @@ public interface UsersService {
 
     UsersModel getUserByEmail(String Email);
 
-    UpdateUsersModel updateUser (UpdateUsersModel updateUsersModel, Long userId);
+    UsersModel updateUser (UpdateUsersModel updateUsersModel, Long userId);
 
     void deleteUser(Long userId);
 
