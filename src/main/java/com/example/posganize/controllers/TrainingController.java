@@ -27,7 +27,7 @@ public class TrainingController {
 
     @GetMapping("/all")
 //    @PreAuthorize("hasAuthority('admin:read')")
-    public ResponseEntity<Set<TrainingModel>> getAllClubNews(){
+    public ResponseEntity<Set<TrainingModel>> getAllTrainings(){
         return new ResponseEntity<>(trainingService.getAllTraining(), HttpStatus.OK);
     }
 
