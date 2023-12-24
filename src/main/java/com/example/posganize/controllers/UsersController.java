@@ -52,7 +52,7 @@ public class UsersController {
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<UpdateUsersModel> updateUser(@PathVariable("id") Long userId, @Valid @RequestBody UpdateUsersModel updateUsersModel){
+    public ResponseEntity<UsersModel> updateUser(@PathVariable("id") Long userId, @Valid @RequestBody UpdateUsersModel updateUsersModel){
         return new ResponseEntity<>(usersService.updateUser(updateUsersModel, userId), HttpStatus.OK);
     }
 

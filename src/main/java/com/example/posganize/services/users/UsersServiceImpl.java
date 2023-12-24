@@ -70,7 +70,7 @@ public class UsersServiceImpl implements UsersService {
 
 
     @Override
-    public UpdateUsersModel updateUser(UpdateUsersModel updateUsersModel, Long userId) {
+    public UsersModel updateUser(UpdateUsersModel updateUsersModel, Long userId) {
         var entity = UsersMapper.mapUpdateUsersModelToUsers(updateUsersModel);
         var newUser = usersRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found"));
         if (entity.getFirstName() !=null )
@@ -82,7 +82,7 @@ public class UsersServiceImpl implements UsersService {
         if (entity.getPassword() !=null )
             newUser.setPassword(entity.getPassword());
         usersRepository.save(newUser);
-        return UsersMapper.mapUsersToUpdateUsersModel(newUser);
+        return UsersMapper.mapUsersToUsersModel(newUser);
     }
 
     @Override
