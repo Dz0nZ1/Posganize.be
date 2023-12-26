@@ -1,6 +1,5 @@
-package com.example.posganize.models;
+package com.example.posganize.models.clubRules;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ClubRulesModel {
 
-    @NotBlank(message = "Club news name is mandatory")
+    private Long id;
+    private String image;
     private String name;
-    @NotBlank(message = "Description is mandatory")
     private String description;
 
 }
