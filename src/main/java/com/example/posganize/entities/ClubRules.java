@@ -22,7 +22,10 @@ public class ClubRules {
     @Column(name = "name")
     @NotBlank(message = "Club rules name is mandatory")
     private String name;
-    @Column(name = "description")
+    @Column(name="image")
+    @NotBlank(message = "Image Url for the icon is mandatory")
+    private String image;
+    @Column(name = "description", length = 10000)
     @NotBlank(message = "Club rules description is mandatory")
     private String description;
 

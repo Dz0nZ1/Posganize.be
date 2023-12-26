@@ -24,7 +24,7 @@ public class ClubNews {
     @Column(name = "name")
     @NotBlank(message = "Club news name is mandatory")
     private String title;
-    @Column(name = "description")
+    @Column(name = "description", length = 100000)
     @NotBlank(message = "Club news description is mandatory")
     private String description;
     @NotBlank(message = "Club news image is mandatory")

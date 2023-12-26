@@ -1,6 +1,8 @@
 package com.example.posganize.controllers;
 
-import com.example.posganize.models.ClubRulesModel;
+import com.example.posganize.models.clubRules.ClubRulesModel;
+import com.example.posganize.models.clubRules.CreateClubRulesModel;
+import com.example.posganize.models.clubRules.UpdateClubRulesModel;
 import com.example.posganize.services.clubRules.ClubRulesService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -35,13 +37,13 @@ public class ClubRulesController {
 
     @PostMapping("/create")
 //    @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<ClubRulesModel> createClubRule(@Valid @RequestBody ClubRulesModel clubRulesModel){
+    public ResponseEntity<ClubRulesModel> createClubRule(@Valid @RequestBody CreateClubRulesModel clubRulesModel){
         return new ResponseEntity<>(clubRulesService.createClubRule(clubRulesModel), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<ClubRulesModel> updateClubRule(@PathVariable("id") Long clubRuleId, @Valid @RequestBody ClubRulesModel clubRulesModel){
+    public ResponseEntity<ClubRulesModel> updateClubRule(@PathVariable("id") Long clubRuleId, @Valid @RequestBody UpdateClubRulesModel clubRulesModel){
         return new ResponseEntity<>(clubRulesService.updateClubRule(clubRulesModel, clubRuleId), HttpStatus.OK);
     }
 
