@@ -17,6 +17,7 @@ public class TrainingMapper {
                 .image(training.getImage())
                 .description(training.getDescription())
                 .price(training.getPrice())
+                .currency(training.getCurrency())
                 .build();
         if(training.getSchedules() != null) model.setSchedule(ScheduleMapper.mapScheduleListToScheduleModelList(training.getSchedules()));
         else model.setSchedule(null);
@@ -31,6 +32,7 @@ public class TrainingMapper {
                 .description(training.getDescription())
                 .image(training.getImage())
                 .price(training.getPrice())
+                .currency(training.getCurrency())
                 .build();
         if(training.getSchedule() != null) entity.setSchedules((ScheduleMapper.mapScheduleListModelToScheduleList(training.getSchedule())));
         else entity.setSchedules(null);
