@@ -20,6 +20,7 @@ public class UsersMapper {
                 .phoneNumber(users.getPhoneNumber())
                 .registrationDate(users.getRegistrationDate())
                 .email(users.getEmail())
+                .image(users.getImage())
                 .build();
 
        if(users.getMemberships() != null) {
@@ -40,6 +41,7 @@ public class UsersMapper {
                 .phoneNumber(usersModel.getPhoneNumber())
                 .registrationDate(usersModel.getRegistrationDate())
                 .email(usersModel.getEmail())
+                .image(usersModel.getImage())
                 .build();
     }
 
