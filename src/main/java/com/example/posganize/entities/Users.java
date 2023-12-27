@@ -51,6 +51,9 @@ public class Users implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
+    @Column(name = "image", length = 5000000)
+    @Lob
+    private byte[] image;
     @OneToMany(mappedBy = "users")
     private List<Token> tokens;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

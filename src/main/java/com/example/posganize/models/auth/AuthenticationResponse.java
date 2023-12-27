@@ -1,6 +1,5 @@
 package com.example.posganize.models.auth;
 
-import com.example.posganize.enums.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +20,6 @@ public class AuthenticationResponse {
     private String firstName;
     @JsonProperty("lastName")
     private String lastname;
+    @JsonProperty("image")
+    private byte[] image;
 }
