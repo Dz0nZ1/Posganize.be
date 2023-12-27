@@ -20,5 +20,6 @@ public class UsersModel {
     private String email;
     private LocalDateTime registrationDate;
     private Boolean active;
+    private byte[] image;
 
 }
