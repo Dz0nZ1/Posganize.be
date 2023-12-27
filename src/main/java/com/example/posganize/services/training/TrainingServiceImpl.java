@@ -1,6 +1,7 @@
 package com.example.posganize.services.training;
 
 import com.example.posganize.entities.Schedule;
+import com.example.posganize.enums.CurrencyEnum;
 import com.example.posganize.exceptions.TrainingNotFoundException;
 import com.example.posganize.mappers.ScheduleMapper;
 import com.example.posganize.mappers.TrainingMapper;
@@ -54,6 +55,7 @@ public class TrainingServiceImpl implements TrainingService{
                 })
                 .collect(Collectors.toList());
         trainingEntity.setSchedules(schedules);
+        trainingEntity.setCurrency(CurrencyEnum.USD);
         trainingRepository.save(trainingEntity);
         return TrainingMapper.mapTrainingToTrainingModel(trainingEntity);
     }
