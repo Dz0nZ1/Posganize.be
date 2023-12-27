@@ -66,7 +66,7 @@ class ScheduleControllerTest {
 
 
     @BeforeEach
-    void init() {
+    void setUp() {
 
         scheduleModel = ScheduleModel
                 .builder()

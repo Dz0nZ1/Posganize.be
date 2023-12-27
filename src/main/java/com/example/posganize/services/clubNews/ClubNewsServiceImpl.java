@@ -58,7 +58,7 @@ public class ClubNewsServiceImpl implements ClubNewsService {
     @Override
     public ClubNewsModel createClubNews(CreateClubNewsModel clubNews) {
         var entity = ClubNewsMapper.mapCreateClubNewsTOClubNews(clubNews);
-        var user = usersRepository.findByEmail(clubNews.getEmail()).orElseThrow(() -> new NullPointerException("News not found"));
+        var user = usersRepository.findByEmail(clubNews.getEmail()).orElseThrow(() -> new NullPointerException("User not found"));
         entity.setUser(user);
         entity.setCreatedAt(LocalDateTime.now());
         clubNewsRepository.save(entity);
