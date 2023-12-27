@@ -54,6 +54,7 @@ public class AuthenticationService {
                 .registrationDate(LocalDateTime.now())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(RoleEnum.USER)
+                .image(request.getImage())
                 .build();
         var savedUser = usersRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -82,6 +83,7 @@ public class AuthenticationService {
                 .refreshToken(refreshToken)
                 .firstName(user.getFirstName())
                 .lastname(user.getLastName())
+                .image(user.getImage())
                 .build();
     }
 
