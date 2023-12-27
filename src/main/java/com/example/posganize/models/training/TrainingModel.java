@@ -1,5 +1,6 @@
 package com.example.posganize.models.training;
 
+import com.example.posganize.enums.CurrencyEnum;
 import com.example.posganize.models.schedule.ScheduleModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,5 +20,6 @@ public class TrainingModel {
     private String description;
     private String image;
     private Double price;
+    private CurrencyEnum currency;
     private List<ScheduleModel> schedule;
 }

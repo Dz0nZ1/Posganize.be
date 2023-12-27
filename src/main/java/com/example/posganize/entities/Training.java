@@ -1,5 +1,6 @@
 package com.example.posganize.entities;
 
+import com.example.posganize.enums.CurrencyEnum;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -32,7 +33,9 @@ public class Training {
     @Column(name = "description", length = 100000)
     @NotBlank(message = "Description is mandatory")
     private String description;
-
+    @Column(name = "currency")
+    @Enumerated(EnumType.STRING)
+    private CurrencyEnum currency;
     @JsonManagedReference
     @ToString.Exclude
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)

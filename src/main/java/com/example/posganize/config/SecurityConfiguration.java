@@ -72,6 +72,7 @@ public class SecurityConfiguration {
             "/api/v1/stripe/card/token",
             "/api/v1/stripe/charge",
             "/api/v1/stripe/customer/subscription",
+            "/api/v1/stripe/checkout",
 
 
             "/api/v1/clubnews/create",
@@ -79,6 +80,12 @@ public class SecurityConfiguration {
             "/api/v1/clubnews/get/**",
             "/api/v1/clubnews/update/**",
             "/api/v1/clubnews/delete/**",
+
+            "/api/v1/clubrules/all",
+            "/api/v1/clubrules/get/**",
+            "/api/v1/clubrules/create",
+            "/api/v1/clubrules/update/**",
+            "/api/v1/clubrules/delete/**",
 
 
 
