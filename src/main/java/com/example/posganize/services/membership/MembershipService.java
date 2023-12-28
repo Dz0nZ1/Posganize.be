@@ -18,6 +18,7 @@ public interface MembershipService {
 
     Map<String, Object> getRevenueAndMembers(LocalDate fromDate , LocalDate toDate);
 
+    MembershipModel createMembershipByUserEmail(CreateMembershipModel membershipModel, String email);
     MembershipModel createMembership (CreateMembershipModel membershipModel);
 
     MembershipModel updateMembership (MembershipModel membershipModel, Long membershipId);
