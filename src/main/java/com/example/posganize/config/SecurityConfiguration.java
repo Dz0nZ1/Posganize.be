@@ -73,6 +73,7 @@ public class SecurityConfiguration {
             "/api/v1/stripe/charge",
             "/api/v1/stripe/customer/subscription",
             "/api/v1/stripe/checkout",
+            "/api/v1/stripe/webhook",
 
 
             "/api/v1/clubnews/create",
