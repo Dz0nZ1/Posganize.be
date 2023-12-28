@@ -98,6 +98,22 @@ public class MembershipServiceImpl implements MembershipService {
 
 
     @Override
+    public MembershipModel createMembershipByUserEmail(CreateMembershipModel membershipModel, String email) {
+        var user = usersRepository.findByEmail(email).orElseThrow(() -> new MembershipNotFoundException("User not found"));
+        var entity = MembershipMapper.mapCreateMembershipModelToMembership(membershipModel);
+        entity.setUser(user);
+        entity.setTrainings(TrainingMapper.mapTrainingModelSetToTrainingSet(membershipModel.getTrainings()));
+        double price = 0;
+        for(TrainingModel training : membershipModel.getTrainings()){
+            price += training.getPrice();
+        }
+        entity.setPrice(price);
+        entity.setActive(true);
+        membershipRepository.save(entity);
+        return MembershipMapper.mapMembershipToMembershipModel(entity);
+    }
+
+    @Override
     public MembershipModel createMembership(CreateMembershipModel membershipModel) {
         var user = usersRepository.findById(membershipModel.getUserId()).orElseThrow(() -> new MembershipNotFoundException("Membership not found"));
         var entity = MembershipMapper.mapCreateMembershipModelToMembership(membershipModel);

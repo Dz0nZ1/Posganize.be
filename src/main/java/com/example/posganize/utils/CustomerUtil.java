@@ -1,4 +1,4 @@
-package com.example.posganize.models.stripe;
+package com.example.posganize.utils;
 
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
