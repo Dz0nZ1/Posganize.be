@@ -22,10 +22,10 @@ public enum PermissionEnum {
 
     //Users permissions
 
-    USER_READ("users:read"),
-    USER_UPDATE("users:update"),
-    USER_CREATE("users:create"),
-    USER_DELETE("users:delete")
+    USER_READ("user:read"),
+    USER_UPDATE("user:update"),
+    USER_CREATE("user:create"),
+    USER_DELETE("user:delete")
 
     ;
 
