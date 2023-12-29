@@ -81,6 +81,8 @@ public class SecurityConfiguration {
             "/api/v1/clubnews/get/**",
             "/api/v1/clubnews/update/**",
             "/api/v1/clubnews/delete/**",
+            "/api/v1/clubnews/pageable",
+
 
             "/api/v1/clubrules/all",
             "/api/v1/clubrules/get/**",

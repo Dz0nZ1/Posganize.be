@@ -158,6 +158,7 @@ public class AuthenticationService {
        concatenatedRoleNames = String.join(",", roleNames);
        response.put("role", concatenatedRoleNames);
        var user = usersRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UserNotFoundException("User not found"));
+       response.put("firstName", user.getFirstName());
        response.put("userId", user.getUser_id());
        response.put("email", user.getEmail());
       return response;

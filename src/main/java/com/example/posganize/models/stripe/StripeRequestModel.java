@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class RequestDTO {
+public class StripeRequestModel {
     List<TrainingModel> items;
     String customerName;
     String customerEmail;
