@@ -45,16 +45,16 @@ public class StripeController {
 
 
     @PostMapping("/checkout")
-    String hostedCheckout(@RequestBody RequestDTO requestDTO) throws StripeException {
+    String hostedCheckout(@RequestBody StripeRequestModel stripeRequestModel) throws StripeException {
 
         Stripe.apiKey = STRIPE_API_KEY;
         String clientBaseURL = StripeConstants.CLIENT_BASE_URL;
 
         // Start by finding an existing customer record from Stripe or creating a new one if needed
-        Customer customer = CustomerUtil.findOrCreateCustomer(requestDTO.getCustomerEmail(), requestDTO.getCustomerName());
+        Customer customer = CustomerUtil.findOrCreateCustomer(stripeRequestModel.getCustomerEmail(), stripeRequestModel.getCustomerName());
 
 
-        List<Long> trainingModelIds = requestDTO.getItems().stream().map(TrainingModel::getId)
+        List<Long> trainingModelIds = stripeRequestModel.getItems().stream().map(TrainingModel::getId)
                 .toList();
 
 
@@ -66,7 +66,7 @@ public class StripeController {
                         .setSuccessUrl(clientBaseURL + "/success?session_id={CHECKOUT_SESSION_ID}")
                         .setCancelUrl(clientBaseURL + "/failure");
 
-        for (TrainingModel trainingModel : requestDTO.getItems()) {
+        for (TrainingModel trainingModel : stripeRequestModel.getItems()) {
             paramsBuilder.addLineItem(
                     SessionCreateParams.LineItem.builder()
                             .setQuantity(1L)
@@ -85,7 +85,7 @@ public class StripeController {
             paramsBuilder.setPaymentIntentData(
                     SessionCreateParams.PaymentIntentData.builder()
                             .putMetadata("trainingModelIds", trainingModelIds.toString())
-                            .putMetadata("email", requestDTO.getCustomerEmail())
+                            .putMetadata("email", stripeRequestModel.getCustomerEmail())
                             .build()
             );
         }
