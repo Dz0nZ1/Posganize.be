@@ -34,7 +34,7 @@ public class ClubNewsController {
     }
 
     @GetMapping("/pageable")
-    public ResponseEntity<ClubNewsPageableModel> getAllClubNewsPageable(
+    public ResponseEntity<ClubNewsPageableModel> getClubNewsPageable(
             @RequestParam(value = "pageNumber", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false ) int pageSize
     ) {
