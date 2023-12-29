@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -28,6 +29,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/stripe")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 @Slf4j
 public class StripeController {
 
@@ -45,6 +47,7 @@ public class StripeController {
 
 
     @PostMapping("/checkout")
+    @PreAuthorize("hasAuthority('user:create')")
     String hostedCheckout(@RequestBody StripeRequestModel stripeRequestModel) throws StripeException {
 
         Stripe.apiKey = STRIPE_API_KEY;

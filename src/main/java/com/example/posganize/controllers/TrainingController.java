@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/training")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class TrainingController {
     private final TrainingService trainingService;
 
@@ -26,12 +28,13 @@ public class TrainingController {
     }
 
     @GetMapping("/all")
-//    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAnyAuthority('admin:read', 'user:read')")
     public ResponseEntity<Set<TrainingModel>> getAllTrainings(){
         return new ResponseEntity<>(trainingService.getAllTraining(), HttpStatus.OK);
     }
 
     @GetMapping("/users-per-training")
+    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<List<Map<String, Long>>> getUsersCountPerTraining(
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate) {
@@ -39,25 +42,25 @@ public class TrainingController {
     }
 
     @GetMapping("/get/{id}")
-//    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAnyAuthority('admin:read', 'user:read')")
     public ResponseEntity<TrainingModel> getTrainingById(@PathVariable("id") Long trainingId){
         return new ResponseEntity<>(trainingService.getTrainingById(trainingId), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-//    @PreAuthorize("hasAuthority('admin:create')")
+    @PreAuthorize("hasAuthority('admin:create')")
     public ResponseEntity<TrainingModel> createTraining(@Valid @RequestBody CreateTrainingModel training){
         return new ResponseEntity<>(trainingService.createTraining(training), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-//    @PreAuthorize("hasAuthority('admin:update')")
+    @PreAuthorize("hasAuthority('admin:update')")
     public ResponseEntity<TrainingModel> updateTraining(@PathVariable("id") Long trainingId, @Valid @RequestBody UpdateTrainingModel training){
         return new ResponseEntity<>(trainingService.updateTraining(training, trainingId), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-//    @PreAuthorize("hasAuthority('admin:delete')")
+    @PreAuthorize("hasAuthority('admin:delete')")
     public ResponseEntity<Map<String, String>> deleteTraining(@PathVariable("id") Long trainingId) {
         trainingService.deleteTraining(trainingId);
         Map<String, String> response = new HashMap<>();

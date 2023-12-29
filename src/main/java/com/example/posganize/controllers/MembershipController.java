@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import static com.example.posganize.constants.PageableConstants.*;
 
 @RestController
 @RequestMapping("/api/v1/membership")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class MembershipController {
 
     private final MembershipService membershipService;
@@ -29,19 +31,19 @@ public class MembershipController {
 
 
     @GetMapping("/all")
-//    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<List<MembershipModel>> getAllMemberships(){
         return new ResponseEntity<>(membershipService.getAllMemberships(), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
-//    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<MembershipModel> getMembership(@PathVariable("id") Long membershipId){
         return new ResponseEntity<>(membershipService.getMembership(membershipId), HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
-//    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAnyAuthority('admin:read', 'user:read')")
     public ResponseEntity<MembershipPageableModel> getMembershipByUserId(
             @RequestParam(value = "pageNumber", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false ) int pageSize,
@@ -53,19 +55,19 @@ public class MembershipController {
     }
 
     @PostMapping("/create")
-//    @PreAuthorize("hasAuthority('admin:create')")
+    @PreAuthorize("hasAuthority('admin:create')")
     public ResponseEntity<MembershipModel> createMembership(@Valid @RequestBody CreateMembershipModel membership){
         return new ResponseEntity<>(membershipService.createMembership(membership), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-//    @PreAuthorize("hasAuthority('admin:update')")
+    @PreAuthorize("hasAuthority('admin:update')")
     public ResponseEntity<MembershipModel> updateMembership(@PathVariable("id") Long membershipId, @Valid @RequestBody MembershipModel membershipModel){
         return new ResponseEntity<>(membershipService.updateMembership(membershipModel, membershipId), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-//    @PreAuthorize("hasAuthority('admin:delete')")
+    @PreAuthorize("hasAuthority('admin:delete')")
     public ResponseEntity<Map<String, String>> deleteMembership(@PathVariable("id") Long membershipId) {
         membershipService.deleteMembership(membershipId);
         Map<String, String> response = new HashMap<>();
@@ -74,11 +76,13 @@ public class MembershipController {
     }
 
     @GetMapping("/active/{id}")
+    @PreAuthorize("hasAnyAuthority('admin:read', 'user:read')")
     public ResponseEntity<Map<String, Boolean>> isActiveMembershipByUserId(@PathVariable("id") Long userId) {
         return new ResponseEntity<>(membershipService.isActiveMembershipByUserId(userId), HttpStatus.OK);
     }
 
     @GetMapping("/revenue-and-members")
+    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<Map<String, Object>> getRevenueAndMembers(
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate) {
