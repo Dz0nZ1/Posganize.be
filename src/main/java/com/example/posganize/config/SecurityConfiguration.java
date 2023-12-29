@@ -20,7 +20,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Collections;
 
 import static com.example.posganize.enums.PermissionEnum.*;
-import static com.example.posganize.enums.RoleEnum.*;
 import static org.springframework.http.HttpMethod.*;
 
 @Configuration
@@ -37,62 +36,9 @@ public class SecurityConfiguration {
     private final String[] whiteList = {
             "/api/v1/auth/register",
             "/api/v1/auth/login",
-
-            "/generate-qr-code",
-
-            "/api/v1/users/all",
-            "/api/v1/users/get/**",
-            "/api/v1/users/update/**",
-            "/api/v1/users/delete/**",
-
-            "/api/v1/membership/all",
-            "/api/v1/membership/create",
-            "/api/v1/membership/get/**",
-            "/api/v1/membership/user/**",
-            "/api/v1/membership/update/**",
-            "/api/v1/membership/delete/**",
-            "/api/v1/membership/active/**",
-            "/api/v1/membership/revenue-and-members",
-
-            "/api/v1/schedule/all",
-            "/api/v1/schedule/create",
-            "/api/v1/schedule/create/**",
-            "/api/v1/schedule/get/**",
-            "/api/v1/schedule/update/**",
-            "/api/v1/schedule/delete/**",
-
-            "/api/v1/training/all",
-            "/api/v1/training/get/**",
-            "/api/v1/training/create",
-            "/api/v1/training/delete/**",
-            "/api/v1/training/update/**",
-            "/api/v1/training/users-per-training",
             "/api/v1/auth/check-auth",
-
-            "/api/v1/stripe/card/token",
-            "/api/v1/stripe/charge",
-            "/api/v1/stripe/customer/subscription",
-            "/api/v1/stripe/checkout",
             "/api/v1/stripe/webhook",
-
-
-            "/api/v1/clubnews/create",
-            "/api/v1/clubnews/all",
-            "/api/v1/clubnews/get/**",
-            "/api/v1/clubnews/update/**",
-            "/api/v1/clubnews/delete/**",
-            "/api/v1/clubnews/pageable",
-
-
-            "/api/v1/clubrules/all",
-            "/api/v1/clubrules/get/**",
-            "/api/v1/clubrules/create",
-            "/api/v1/clubrules/update/**",
-            "/api/v1/clubrules/delete/**",
-
-
-
-
+            "/generate-qr-code",
     };
 
     @Bean
@@ -105,25 +51,56 @@ public class SecurityConfiguration {
                                req.requestMatchers(whiteList)
                                        .permitAll()
 
-                                       //Roles
-                                       .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                                       .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
+                                       //Users
+                                       .requestMatchers(GET, "/api/v1/users/all").hasAuthority(ADMIN_READ.name())
+                                       .requestMatchers(GET, "/api/v1/users/get/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(PUT, "/api/v1/users/update/**").hasAuthority(ADMIN_UPDATE.name())
+                                       .requestMatchers(DELETE, "/api/v1/users/delete/**").hasAuthority(ADMIN_DELETE.name())
 
-//                                       .requestMatchers( "/api/v1/auth/check-auth").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
-//                                       .requestMatchers(GET,  "/api/v1/auth/check-auth").hasAuthority(USER_READ.name())
+                                       //Memberships
+                                       .requestMatchers(GET, "/api/v1/membership/all").hasAuthority(ADMIN_READ.name())
+                                       .requestMatchers(GET, "/api/v1/membership/user/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(GET, "/api/v1/membership/active/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(GET, "/api/v1/membership/revenue-and-members").hasAuthority(ADMIN_READ.name())
+                                       .requestMatchers(POST, "/api/v1/membership/create" ).hasAuthority(ADMIN_CREATE.name())
+                                       .requestMatchers(GET, "/api/v1/membership/get/**").hasAuthority(ADMIN_READ.name())
+                                       .requestMatchers(PUT, "/api/v1/membership/update/**").hasAuthority(ADMIN_UPDATE.name())
+                                       .requestMatchers(DELETE, "/api/v1/membership/delete/**").hasAuthority(ADMIN_DELETE.name())
 
-                                       //Manager
-                                       .requestMatchers(GET, "/api/v1/management/get").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                                       .requestMatchers(POST, "/api/v1/management/post").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                                       .requestMatchers(PUT, "/api/v1/management/put").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                                       .requestMatchers(DELETE, "/api/v1/management/delete").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+                                       //Schedules
+                                       .requestMatchers(GET, "/api/v1/schedule/all").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(GET,  "/api/v1/schedule/get/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(POST, "/api/v1/schedule/create").hasAuthority(ADMIN_CREATE.name())
+                                       .requestMatchers(POST, "/api/v1/schedule/create/**").hasAuthority(ADMIN_CREATE.name())
+                                       .requestMatchers(PUT, "/api/v1/schedule/update/**").hasAuthority(ADMIN_UPDATE.name())
+                                       .requestMatchers(DELETE, "/api/v1/schedule/delete/**").hasAuthority(ADMIN_DELETE.name())
 
-                                       //Admin
-                                       .requestMatchers(GET, "/api/v1/admin/get").hasAuthority(ADMIN_READ.name())
-                                       .requestMatchers(POST, "/api/v1/admin/post").hasAuthority(ADMIN_CREATE.name())
-                                       .requestMatchers(PUT, "/api/v1/admin/put").hasAuthority(ADMIN_UPDATE.name())
-                                       .requestMatchers(DELETE, "/api/v1/admin/delete").hasAuthority(ADMIN_DELETE.name())
+                                       //Trainings
+                                       .requestMatchers(GET, "/api/v1/training/all").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(GET,  "/api/v1/training/get/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(GET,  "/api/v1/training/users-per-training").hasAuthority(ADMIN_READ.name())
+                                       .requestMatchers(POST, "/api/v1/training/create").hasAuthority(ADMIN_CREATE.name())
+                                       .requestMatchers(PUT, "/api/v1/training/update/**").hasAuthority(ADMIN_UPDATE.name())
+                                       .requestMatchers(DELETE, "/api/v1/training/delete/**").hasAuthority(ADMIN_DELETE.name())
 
+
+                                        //ClubNews
+                                       .requestMatchers(GET, "/api/v1/clubnews/all").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(GET, "/api/v1/clubnews/pageable").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(GET,  "/api/v1/clubnews/get/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(POST, "/api/v1/clubnews/create").hasAuthority(ADMIN_CREATE.name())
+                                       .requestMatchers(PUT, "/api/v1/clubnews/update/**").hasAuthority(ADMIN_UPDATE.name())
+                                       .requestMatchers(DELETE, "/api/v1/clubnews/delete/**").hasAuthority(ADMIN_DELETE.name())
+
+
+                                       .requestMatchers(GET, "/api/v1/clubrules/all").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(GET,  "/api/v1/clubrules/get/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                       .requestMatchers(POST, "/api/v1/clubrules/create").hasAuthority(ADMIN_CREATE.name())
+                                       .requestMatchers(PUT, "/api/v1/clubrules/update/**").hasAuthority(ADMIN_UPDATE.name())
+                                       .requestMatchers(DELETE, "/api/v1/clubrules/delete/**").hasAuthority(ADMIN_DELETE.name())
+
+
+                                       .requestMatchers(POST,  "/api/v1/stripe/checkout").hasAnyAuthority(USER_CREATE.name())
 
                                        .anyRequest()
                                        .authenticated()
