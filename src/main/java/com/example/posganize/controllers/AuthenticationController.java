@@ -29,7 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody AuthenticationRequest request){
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody AuthenticationRequest request){
         return new ResponseEntity<>(authenticationService.login(request), HttpStatus.OK);
 
     }

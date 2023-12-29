@@ -60,10 +60,6 @@ public class Users implements UserDetails {
     private List<Membership> memberships;
     @JsonManagedReference
     @ToString.Exclude
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Payments payments;
-    @JsonManagedReference
-    @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ClubNews> clubNews;
 
