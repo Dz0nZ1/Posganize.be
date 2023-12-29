@@ -30,11 +30,6 @@ public class Membership {
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @JsonManagedReference
-    @ToString.Exclude
-    @OneToOne(mappedBy = "membership", cascade = CascadeType.ALL)
-    private Payments payments;
-
     @ManyToMany
     @JoinTable(
             name = "membership_training",
