@@ -87,19 +87,6 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(PaymentNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ErrorModel> handlePaymentNotFoundException(PaymentNotFoundException ex) {
-        var error =  ErrorModel.builder()
-                .errorType(PAYMENT_ERROR_TYPE)
-                .statusCode(HttpStatus.NOT_FOUND.value())
-                .message(ex.getMessage())
-                .time(LocalDateTime.now())
-                .build();
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-
-
     @ExceptionHandler(TrainingNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorModel> handleTrainingNotFoundException(TrainingNotFoundException ex) {
@@ -174,7 +161,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({ HttpMessageNotReadableException.class })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Map<String, String>> resolveException(HttpMessageNotReadableException ex) {
+    public ResponseEntity<Map<String, String>> resolveException() {
         Map<String, String> message = new HashMap<>();
         message.put("message", "Please provide Request Body in valid JSON format");
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
