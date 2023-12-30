@@ -29,7 +29,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/stripe")
-@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 @Slf4j
 public class StripeController {
 
