@@ -54,7 +54,7 @@ public class Users implements UserDetails {
     @Column(name = "image", length = 5000000)
     @Lob
     private byte[] image;
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Token> tokens;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Membership> memberships;
