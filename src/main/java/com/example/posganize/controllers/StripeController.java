@@ -106,18 +106,29 @@ public class StripeController {
             // Handle the event
             switch (event.getType()) {
                 case "payment_intent.succeeded":
+                    PaymentIntent createPaymentIntent = null;
+
+                    var stripeObjectOptional1 = event.getDataObjectDeserializer().getObject();
+
+                    if (stripeObjectOptional1.isPresent() && stripeObjectOptional1.get() instanceof PaymentIntent) {
+                        createPaymentIntent = (PaymentIntent) stripeObjectOptional1.get();
+                    } else {
+                        System.out.println("Unexpected object type or missing PaymentIntent");
+                    }
+                    if (createPaymentIntent != null) {
+                        LOGGER.info("Payment intent was successfully created");
+                    }
+
+                    break;
+                case "invoice.payment_succeeded":
 
                     PaymentIntent paymentIntent = null;
 
-                    // Get the StripeObject from the event
                     var stripeObjectOptional = event.getDataObjectDeserializer().getObject();
 
-                    // Check if the StripeObject is present and if it's an instance of PaymentIntent
                     if (stripeObjectOptional.isPresent() && stripeObjectOptional.get() instanceof PaymentIntent) {
                         paymentIntent = (PaymentIntent) stripeObjectOptional.get();
                     } else {
-                        // Handle the case where the object is not a PaymentIntent
-                        // You might log an error or perform other error-handling actions
                         System.out.println("Unexpected object type or missing PaymentIntent");
                     }
 
@@ -147,12 +158,12 @@ public class StripeController {
 
 
                     }
-
                     break;
                 case "checkout.session.completed":
-                    System.out.println("success");
+                    LOGGER.info("Checkout success");
+                    break;
                 default:
-                    System.out.println("Unhandled event type: " + event.getType());
+                    LOGGER.info("Unhandled event type: " + event.getType());
                     break;
             }
 
@@ -167,8 +178,8 @@ public class StripeController {
     }
 
     public static List<Long> parseStringToList(String input) {
-        input = input.substring(1, input.length() - 1); // Remove brackets [ and ]
-        String[] elements = input.split(", "); // Split by comma and space
+        input = input.substring(1, input.length() - 1);
+        String[] elements = input.split(", ");
 
         List<Long> result = new ArrayList<>();
         for (String element : elements) {
