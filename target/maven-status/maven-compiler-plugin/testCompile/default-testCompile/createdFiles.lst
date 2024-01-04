@@ -1,0 +1,16 @@
+com\example\posganize\repository\UsersRepositoryTest.class
+com\example\posganize\services\membership\MembershipServiceTest.class
+com\example\posganize\config\TestSecurityConfig.class
+com\example\posganize\repository\ScheduleRepositoryTest.class
+com\example\posganize\services\schedule\ScheduleServiceTest.class
+com\example\posganize\PosganizeApplicationTests.class
+com\example\posganize\services\users\UsersServiceTest.class
+com\example\posganize\controllers\MembershipControllerTest.class
+com\example\posganize\controllers\UsersControllerTest.class
+com\example\posganize\repository\TrainingRepositoryTest.class
+com\example\posganize\services\training\TrainingServiceTest.class
+com\example\posganize\repository\MembershipRepositoryTest.class
+com\example\posganize\controllers\TrainingControllerTest.class
+com\example\posganize\controllers\ScheduleControllerTest.class
+com\example\posganize\controllers\ClubNewsControllerTest.class
+com\example\posganize\services\clubNews\ClubNewsServiceTest.class
