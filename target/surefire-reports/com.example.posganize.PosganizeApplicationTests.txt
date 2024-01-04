@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.posganize.PosganizeApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.578 s - in com.example.posganize.PosganizeApplicationTests
