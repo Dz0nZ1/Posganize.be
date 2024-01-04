@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.posganize.repository.MembershipRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.897 s - in com.example.posganize.repository.MembershipRepositoryTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.607 s - in com.example.posganize.repository.MembershipRepositoryTest
