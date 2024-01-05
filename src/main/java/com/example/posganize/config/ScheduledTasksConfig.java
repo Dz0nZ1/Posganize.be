@@ -24,8 +24,8 @@ public class ScheduledTasksConfig implements SchedulingConfigurer {
         taskRegistrar.addTriggerTask(
                 membershipService::checkAndUpdateMembershipStatus,
                 triggerContext -> {
-                    CronTrigger cronTrigger = new CronTrigger("0 0 0 * * ?");
-//                    CronTrigger cronTrigger = new CronTrigger("0 0/2 * * * ?"); test -> every 2 minutes check
+//                  CronTrigger cronTrigger = new CronTrigger("0 0 0 * * ?");
+                    CronTrigger cronTrigger = new CronTrigger("0 0/13 * * * ?");
                     Instant nextExecutionTime = cronTrigger.nextExecution(triggerContext);
                     assert nextExecutionTime != null;
                     return nextExecutionTime;

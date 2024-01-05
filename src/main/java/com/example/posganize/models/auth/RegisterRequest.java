@@ -4,6 +4,7 @@ import jakarta.persistence.Lob;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class RegisterRequest {
     @Email(message = "Email address must be in valid format")
     private String email;
     @NotBlank(message = "Password is mandatory")
-    @Min(value = 8, message = "Password must have at least 8 characters")
+    @Size(min = 8, message = "Password must have at least 8 characters")
     private String password;
     @Lob
     private byte[] image;
