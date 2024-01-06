@@ -1,46 +1,84 @@
-# POSganize
+# 📊 POSGANIZE - Membership management application
+
+POSGANIZE is a full-stack web application built using React for the frontend and Spring Boot for the backend. It serves as a membership organization tool and functions as an information system. There are two types of users: ADMIN and USER. The software is designed for clubs such as sports academies that offer various types of training memberships. An ordinary USER can purchase memberships for a specific period and attend the corresponding training sessions.
 
 
-## Overview
-This application represents the backend system for POSganize, a comprehensive management system tailored for small sports businesses.
-This Spring Boot application is designed to handle membership management, scheduling, and data visualization functionalities for a specified time period.
+## Features
 
-<hr/>
+### ADMIN
 
-## Getting Started
-To get a local copy of this project up and running, follow these steps:
+- Access to the 'Users' page displays a list of all users with details including active membership status, allowing admins to view and manage memberships.
+- Membership History on the "User Details" page enables admins to view a user's membership history and create new memberships.
+- 'Dashboard' page provides graphical representations for selected time periods, displaying total income, attendance for each training, and the most popular training session.
+- Access to the 'Trainings' page allows CRUD operations on individual training sessions and their schedules.
+- 'News' page allows CRUD operations for posting sports-related news or club-specific updates.
+- 'Rules Page' enables admins to manage club rules through adding or deleting rules.
+Note: The admin account is pre-defined and represents the academy owner who purchases the software.
 
-Prerequisites: Ensure you have Java 17+ and MySQL database installed.
+### USER
+- Registration and login features with role-based authentication and UI rendering.
+- Access to view training sessions and details without CRUD capabilities.
+- Ability to add desired training sessions to the cart and proceed to checkout with:  [![Stripe Badge](https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white)](https://stripe.com/)
+- After successful payment, the user is redirected to the profile page showing account information and newly acquired memberships.
+- Access to view their own 'Profile Page' displaying personal account details.
+- Ability to review their own 'Membership History' without access to others' membership records.
+- Access to read the 'News' and 'Rules' sections.
 
-Clone the Repository:
 
-1. git clone https://github.com/your-username/posganize-backend.git
-2. Setup Database
+## Run Locally
+
+1. Clone the project
+
+```bash
+  git clone https://github.com/your-username/posganize-backend.git
+```
+
 3. Create a new database instance.
 4. Update the application.properties file with your database credentials.
 5. Run the Application
 <br/>
-Once the application is running, access the API endpoints through http://localhost:8080
+Once the application is running, access the API endpoints through https://localhost:8080
 
-<hr/>
 
-## Features
-Membership Management: Allows CRUD (Create, Read, Update, Delete) operations for member profiles, including personal details and subscription information.
+## Tech Stack
 
-Scheduling System: Provides tools to create, modify, and delete schedules for different activities or services offered by the sports business.
+**Client:**  
 
-Data Visualization: Offers simplified and comprehensive visualizations of relevant data pertaining to membership, schedules, and business performance within a specific timeframe.
+ [![React Badge](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 
-<hr/>
+  [![React Router Badge](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://reactrouter.com/)
 
-## Technologies Used
-Spring Boot: Utilized for rapid development and streamlined configuration.
 
-Spring Data JPA: Facilitates easy access and manipulation of the application's relational database.
+ [![React Query Badge](https://img.shields.io/badge/React_Query-FF0000?style=for-the-badge&logo=react&logoColor=white)](https://react-query.tanstack.com/)
 
-Spring Security: Ensures secure endpoints and implements authentication and authorization mechanisms.
+ [![Redux Badge](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)](https://redux.js.org/)
 
-MySQL: Chosen as the relational database management system.
+[![styled-components Badge](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)](https://styled-components.com/)
 
-RESTful API: Provides endpoints for seamless integration with frontend systems or third-party applications.
+[![Material-UI Badge](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)](https://material-ui.com/)
 
+**Server:** 
+
+[![Spring Boot Badge](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)](https://spring.io/projects/spring-boot)
+
+[![Spring Data JPA Badge](https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring-data&logoColor=white)](https://spring.io/projects/spring-data-jpa)
+
+[![Spring Security Badge](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=spring-security&logoColor=white)](https://spring.io/projects/spring-security)
+
+[![MySQL Badge](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+
+
+
+
+
+## Developed by
+
+
+ [![Frontend Badge](https://img.shields.io/badge/POSGANIZE.FE-FF5733?style=for-the-badge&labelColor=black&logoColor=white)](https://github.com/njemecc/POSganize_fe)
+[![njemecc GitHub](https://img.shields.io/badge/GitHub-njemecc-black?style=for-the-badge&logo=github)](https://github.com/njemecc) 
+
+[![Posganize.be - Backend](https://img.shields.io/badge/Posganize.be-28a745?style=for-the-badge&labelColor=black&logoColor=white)](https://github.com/Dz0nZ1/Posganize.be)
+[![GitHub - dzonzi](https://img.shields.io/badge/GitHub-dzonzi-black?style=for-the-badge&logo=github)](https://github.com/Dz0nZ1) 
+## Future plan
+
+- mobile responsive design
