@@ -120,7 +120,7 @@ public class StripeController {
                     }
 
                     break;
-                case "invoice.payment_succeeded":
+                case "charge.succeeded":
 
                     PaymentIntent paymentIntent = null;
 
