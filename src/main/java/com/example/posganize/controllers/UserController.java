@@ -17,11 +17,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/users")
 @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-public class UsersController {
+public class UserController {
 
     private final UsersService usersService;
 
-    public UsersController(UsersService usersService) {
+    public UserController(UsersService usersService) {
         this.usersService = usersService;
     }
 
