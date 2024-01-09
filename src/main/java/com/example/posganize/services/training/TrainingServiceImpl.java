@@ -1,8 +1,10 @@
 package com.example.posganize.services.training;
 
 import com.example.posganize.entities.Schedule;
+import com.example.posganize.entities.Training;
 import com.example.posganize.enums.CurrencyEnum;
 import com.example.posganize.exceptions.TrainingNotFoundException;
+import com.example.posganize.exceptions.UserNotFoundException;
 import com.example.posganize.mappers.ScheduleMapper;
 import com.example.posganize.mappers.TrainingMapper;
 import com.example.posganize.models.schedule.ScheduleModel;
@@ -11,23 +13,31 @@ import com.example.posganize.models.training.TrainingModel;
 import com.example.posganize.models.training.UpdateTrainingModel;
 import com.example.posganize.repository.ScheduleRepository;
 import com.example.posganize.repository.TrainingRepository;
+import com.example.posganize.repository.UsersRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class TrainingServiceImpl implements TrainingService{
 
     private final TrainingRepository trainingRepository;
 
+    private final UsersRepository usersRepository;
+
     private final ScheduleRepository scheduleRepository;
 
-    public TrainingServiceImpl(TrainingRepository trainingRepository, ScheduleRepository scheduleRepository) {
+    public TrainingServiceImpl(TrainingRepository trainingRepository, UsersRepository usersRepository, ScheduleRepository scheduleRepository) {
         this.trainingRepository = trainingRepository;
+        this.usersRepository = usersRepository;
         this.scheduleRepository = scheduleRepository;
     }
 
@@ -86,6 +96,27 @@ public class TrainingServiceImpl implements TrainingService{
         trainingRepository.deleteById(trainingId);
 
     }
+
+
+    @Override
+    public Map<String, Boolean> checkDuplicateTraining(Long trainingId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var user = usersRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        Set<Long> userTrainingIds = user.getMemberships().stream()
+                .flatMap(membership -> membership.getTrainings().stream())
+                .map(Training::getTraining_id)
+                .collect(Collectors.toSet());
+
+        boolean isDuplicate = userTrainingIds.contains(trainingId);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isDuplicate", isDuplicate);
+        return response;
+    }
+
+
 
     @Override
     public List<Map<String, Long>> getUserCountPerTraining(LocalDate fromDate, LocalDate toDate) {

@@ -22,5 +22,7 @@ public interface TrainingService {
     TrainingModel updateTraining(UpdateTrainingModel training, Long trainingId);
     void deleteTraining(Long trainingId);
 
+    Map<String, Boolean> checkDuplicateTraining(Long trainingId);
+
     List<Map<String, Long>> getUserCountPerTraining(LocalDate fromDate, LocalDate toDate);
 }
