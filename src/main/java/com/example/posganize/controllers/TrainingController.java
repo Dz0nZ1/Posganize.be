@@ -47,6 +47,12 @@ public class TrainingController {
         return new ResponseEntity<>(trainingService.getTrainingById(trainingId), HttpStatus.OK);
     }
 
+    @GetMapping("/duplicate/{id}")
+    @PreAuthorize("hasAnyAuthority('admin:read', 'user:read')")
+    public ResponseEntity<Map<String, Boolean>> checkDuplicateTraining(@PathVariable("id") Long trainingId) {
+        return new ResponseEntity<>(trainingService.checkDuplicateTraining(trainingId), HttpStatus.OK);
+    }
+
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('admin:create')")
     public ResponseEntity<TrainingModel> createTraining(@Valid @RequestBody CreateTrainingModel training){
