@@ -1,5 +1,6 @@
 package com.example.posganize.services.training;
 
+import com.example.posganize.entities.Membership;
 import com.example.posganize.entities.Schedule;
 import com.example.posganize.entities.Training;
 import com.example.posganize.enums.CurrencyEnum;
@@ -24,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class TrainingServiceImpl implements TrainingService{
@@ -105,12 +105,12 @@ public class TrainingServiceImpl implements TrainingService{
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         Set<Long> userTrainingIds = user.getMemberships().stream()
+                .filter(Membership::getActive)
                 .flatMap(membership -> membership.getTrainings().stream())
                 .map(Training::getTraining_id)
                 .collect(Collectors.toSet());
 
         boolean isDuplicate = userTrainingIds.contains(trainingId);
-
         Map<String, Boolean> response = new HashMap<>();
         response.put("isDuplicate", isDuplicate);
         return response;
