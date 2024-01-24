@@ -172,13 +172,20 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public Map<String, Boolean> isActiveMembershipByUserId(Long userId) {
         var user = usersRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
-        var membership = membershipRepository.findByUser(user);
+        var memberships = membershipRepository.findAllByUser(user);
         var map = new HashMap<String, Boolean>();
-        if(membership != null) {
-            map.put("active", membership.getActive());
-            return map;
+        if(!memberships.isEmpty()) {
+            boolean hasActiveMembership = memberships.stream().anyMatch(Membership::getActive);
+            map.put("active", hasActiveMembership);
+        }else {
+            map.put("active", false);
         }
-        map.put("active", false);
         return map;
     }
 }
+
+
+
+//            if(memberships.)
+//            map.put("active", membership.getActive());
+//            return map;

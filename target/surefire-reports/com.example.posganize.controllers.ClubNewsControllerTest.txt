@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.posganize.controllers.ClubNewsControllerTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.674 s - in com.example.posganize.controllers.ClubNewsControllerTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.848 s - in com.example.posganize.controllers.ClubNewsControllerTest

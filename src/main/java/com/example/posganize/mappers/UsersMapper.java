@@ -23,11 +23,9 @@ public class UsersMapper {
                 .image(users.getImage())
                 .build();
 
-       if(users.getMemberships() != null) {
-           for (Membership user : users.getMemberships()) {
-               model.setActive(user.getActive());
-           }
-
+       if(!users.getMemberships().isEmpty()) {
+               boolean hasActiveMembership = users.getMemberships().stream().anyMatch(Membership::getActive);
+               model.setActive(hasActiveMembership);
        }
        else model.setActive(null);
        return model;
