@@ -18,6 +18,8 @@ import java.util.Map;
 public interface MembershipRepository extends JpaRepository<Membership,Long> {
     Membership findByUser(Users user);
 
+    List<Membership> findAllByUser(Users users);
+
     List<Membership> findByExpireDateBeforeAndActiveTrue(LocalDateTime localDate);
 
 
