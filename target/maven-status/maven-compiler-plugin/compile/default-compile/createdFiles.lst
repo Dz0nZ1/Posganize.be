@@ -1,4 +1,5 @@
 com\example\posganize\models\clubRules\UpdateClubRulesModel.class
+com\example\posganize\services\stripe\StripeServiceImpl.class
 com\example\posganize\config\JwtAuthenticationFilter.class
 com\example\posganize\services\training\TrainingService.class
 com\example\posganize\entities\ClubRules.class
@@ -6,7 +7,6 @@ com\example\posganize\mappers\UsersMapper.class
 com\example\posganize\exceptions\GlobalExceptionHandler.class
 com\example\posganize\models\user\UserMembershipModel$UserMembershipModelBuilder.class
 com\example\posganize\services\membership\MembershipServiceImpl.class
-com\example\posganize\controllers\UsersController.class
 com\example\posganize\models\membership\MembershipModel.class
 com\example\posganize\mappers\ClubRulesMapper.class
 com\example\posganize\services\auth\LogoutService.class
@@ -50,11 +50,13 @@ com\example\posganize\exceptions\MembershipNotFoundException.class
 com\example\posganize\models\auth\AuthenticationRequest$AuthenticationRequestBuilder.class
 com\example\posganize\entities\Training$TrainingBuilder.class
 com\example\posganize\enums\RoleEnum.class
+com\example\posganize\controllers\UserController.class
 com\example\posganize\models\membership\CreateMembershipModel.class
 com\example\posganize\models\training\TrainingModel.class
 com\example\posganize\exceptions\ScheduleNotfoundException.class
 com\example\posganize\models\membership\CreateMembershipModel$CreateMembershipModelBuilder.class
 com\example\posganize\entities\Token.class
+com\example\posganize\config\KeepServerActive.class
 com\example\posganize\constants\ExceptionConstants.class
 com\example\posganize\services\schedule\ScheduleService.class
 com\example\posganize\models\auth\AuthenticationRequest.class
@@ -81,6 +83,7 @@ com\example\posganize\models\schedule\CreateScheduleModel$CreateScheduleModelBui
 com\example\posganize\models\user\UserPageableModel$UserPageableModelBuilder.class
 com\example\posganize\models\schedule\UpdateScheduleModel$UpdateScheduleModelBuilder.class
 com\example\posganize\PosganizeApplication.class
+com\example\posganize\services\stripe\StripeService.class
 com\example\posganize\models\training\TrainingModel$TrainingModelBuilder.class
 com\example\posganize\entities\Membership$MembershipBuilder.class
 com\example\posganize\services\clubNews\ClubNewsServiceImpl.class
