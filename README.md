@@ -70,12 +70,12 @@ Once the application is running, access the API endpoints through https://localh
 
 ## Developed by
 
+[![Posganize.be - Backend](https://img.shields.io/badge/Posganize.be-28a745?style=for-the-badge&labelColor=black&logoColor=white)](https://github.com/Dz0nZ1/Posganize.be)
+[![GitHub - dzonzi](https://img.shields.io/badge/GitHub-dzonzi-black?style=for-the-badge&logo=github)](https://github.com/Dz0nZ1) 
 
  [![Frontend Badge](https://img.shields.io/badge/POSGANIZE.FE-FF5733?style=for-the-badge&labelColor=black&logoColor=white)](https://github.com/njemecc/POSganize_fe)
 [![njemecc GitHub](https://img.shields.io/badge/GitHub-njemecc-black?style=for-the-badge&logo=github)](https://github.com/njemecc) 
 
-[![Posganize.be - Backend](https://img.shields.io/badge/Posganize.be-28a745?style=for-the-badge&labelColor=black&logoColor=white)](https://github.com/Dz0nZ1/Posganize.be)
-[![GitHub - dzonzi](https://img.shields.io/badge/GitHub-dzonzi-black?style=for-the-badge&logo=github)](https://github.com/Dz0nZ1) 
 
 
 ## Screenshots
